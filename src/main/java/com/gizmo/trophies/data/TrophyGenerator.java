@@ -26,6 +26,7 @@ public class TrophyGenerator extends TrophyProvider {
 	@Override
 	protected void createTrophies() {
 		this.makeTrophy(new Trophy.Builder(EntityType.PLAYER));
+		//TODO 1.20.5 add wolf variants
 		this.makeTrophy(new Trophy.Builder(EntityType.WOLF).setScale(1.25F));
 		this.makeTrophy(new Trophy.Builder(EntityType.CHICKEN).setScale(1.5F).setRightClickBehavior(new ItemDropBehavior(Items.EGG, 10000, SoundEvents.CHICKEN_EGG)));
 		this.makeTrophy(new Trophy.Builder(EntityType.COW).setRightClickBehavior(new ClickWithItemBehavior(Items.BUCKET, true, new ItemDropBehavior(Items.MILK_BUCKET), SoundEvents.COW_MILK)));
@@ -218,7 +219,9 @@ public class TrophyGenerator extends TrophyProvider {
 		this.makeTrophy(new Trophy.Builder(EntityType.ENDER_DRAGON).setDropChance(0.0075D).setScale(0.25F).setRightClickBehavior(new ClickWithItemBehavior(Items.GLASS_BOTTLE, true, new ItemDropBehavior(Items.DRAGON_BREATH))));
 		this.makeTrophy(new Trophy.Builder(EntityType.CAMEL).setScale(0.75F));
 		this.makeTrophy(new Trophy.Builder(EntityType.SNIFFER).setScale(0.5F).setRightClickBehavior(new PullFromLootTableBehavior(BuiltInLootTables.SNIFFER_DIGGING, 20000)));
+		//TODO 1.20.5 make breeze trophies either shoot wind charges or drop breeze rods
 		this.makeTrophy(new Trophy.Builder(EntityType.BREEZE));
+		//TODO 1.20.5 Bogged, Armadillo
 	}
 
 	private CompoundTag buildPandaVariant(String gene) {
