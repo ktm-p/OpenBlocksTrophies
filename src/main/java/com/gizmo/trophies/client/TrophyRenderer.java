@@ -1,10 +1,10 @@
 package com.gizmo.trophies.client;
 
+import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.block.TrophyBlock;
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.gizmo.trophies.trophy.Trophy;
 import com.mojang.blaze3d.Blaze3D;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -138,7 +138,12 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 				stack.scale(0.4F, 0.4F, 0.4F);
 				stack.scale(trophy.scale(), trophy.scale(), trophy.scale());
 
-				RenderSystem.runAsFancy(() -> dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F, stack, source, light));
+				try {
+					dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F, stack, source, light);
+				} catch (Exception e) {
+					OpenBlocksTrophies.LOGGER.error("Failed to render entity {} as a trophy", trophy.type().getDescriptionId(), e);
+					EntityCache.addEntityToBlacklist(trophy.type());
+				}
 				dispatcher.setRenderShadow(true);
 				dispatcher.setRenderHitBoxes(hitboxes);
 			}
