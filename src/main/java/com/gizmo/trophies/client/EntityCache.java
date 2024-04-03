@@ -1,5 +1,6 @@
 package com.gizmo.trophies.client;
 
+import com.gizmo.trophies.OpenBlocksTrophies;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -24,23 +25,27 @@ public class EntityCache {
 	@Nullable
 	public static LivingEntity fetchEntity(EntityType<?> type, @Nullable Level level, @Nullable CompoundTag variant, Optional<CompoundTag> defaultVariant) {
 		if (level != null && !IGNORED_ENTITIES.contains(type)) {
-			Entity entity;
+			Entity entity = null;
 			if (type == EntityType.PLAYER) {
 				entity = Minecraft.getInstance().player;
 			} else {
-				entity = ENTITY_MAP.computeIfAbsent(type, t -> {
-					Entity created = t.create(level);
-					if (created != null) {
-						created.setYRot(0.0F);
-						created.setYHeadRot(0.0F);
-						created.setYBodyRot(0.0F);
-						created.hasImpulse = false;
-						if (created instanceof Mob mob) {
-							mob.setNoAi(true);
+				try {
+					entity = ENTITY_MAP.computeIfAbsent(type, t -> {
+						Entity created = t.create(level);
+						if (created != null) {
+							created.setYRot(0.0F);
+							created.setYHeadRot(0.0F);
+							created.setYBodyRot(0.0F);
+							created.hasImpulse = false;
+							if (created instanceof Mob mob) {
+								mob.setNoAi(true);
+							}
 						}
-					}
-					return created;
-				});
+						return created;
+					});
+				} catch (Exception e) {
+					OpenBlocksTrophies.LOGGER.error("Failed to cache a render for entity {}", type.getDescriptionId(), e);
+				}
 			}
 			if (entity instanceof LivingEntity living) {
 				CompoundTag tag = new CompoundTag();
