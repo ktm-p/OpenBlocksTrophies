@@ -36,6 +36,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.common.Tags;
@@ -189,7 +190,7 @@ public class TrophiesCommands {
 		int successfulFilesMade = 0;
 		for (EntityType<?> entity : BuiltInRegistries.ENTITY_TYPE.stream().filter(type -> (modid.equals("all") || BuiltInRegistries.ENTITY_TYPE.getKey(type).getNamespace().equals(modid)) && checkExistingConfigs != Trophy.getTrophies().containsKey(BuiltInRegistries.ENTITY_TYPE.getKey(type))).toList()) {
 			Class<?> instance = getEntityClass(entity);
-			if (instance != null && Mob.class.isAssignableFrom(instance)) {
+			if (instance != null && Mob.class.isAssignableFrom(instance) && entity.getCategory() != MobCategory.MISC) {
 				ResourceLocation entityName = BuiltInRegistries.ENTITY_TYPE.getKey(entity);
 				Path path = context.getSource().getLevel().getServer().getWorldPath(LevelResource.GENERATED_DIR).resolve(entityName.getNamespace()).resolve("trophies").resolve(entityName.getPath() + ".json").normalize();
 				Trophy.Builder dummy = new Trophy.Builder(entity);
