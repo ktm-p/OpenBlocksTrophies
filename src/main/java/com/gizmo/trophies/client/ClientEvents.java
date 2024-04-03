@@ -1,10 +1,11 @@
 package com.gizmo.trophies.client;
 
 import com.gizmo.trophies.OpenBlocksTrophies;
-import com.gizmo.trophies.misc.TrophyConfig;
-import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.block.TrophyBlock;
 import com.gizmo.trophies.block.TrophyBlockEntity;
+import com.gizmo.trophies.config.TrophyConfig;
+import com.gizmo.trophies.misc.TrophyRegistries;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
@@ -28,8 +29,26 @@ import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Matrix4f;
 
 import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
 
 public class ClientEvents {
+
+	//if you see this and have to ask, no, you aren't being added to this list. Good day.
+	private static final Map<String, Function<Component, Component>> SPECIAL_CASES = ImmutableMap.<String, Function<Component, Component>>builder()
+			.put("celintro", name -> name.plainCopy().withStyle(ChatFormatting.GREEN).append(Component.literal(" ☠").withStyle(ChatFormatting.WHITE)))
+			.put("fastcheeta", name -> name.plainCopy().withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" \uD83C\uDF3C").withStyle(ChatFormatting.LIGHT_PURPLE)))
+			.put("derpderpling", name -> name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x641ACF))))
+			.put("bigdious", name -> name.plainCopy().withStyle(ChatFormatting.DARK_RED).append(Component.literal(" ☺")))
+			.put("melodioustwin", name -> name.plainCopy().withStyle(ChatFormatting.DARK_AQUA).append(Component.literal(" ♫")))
+			.put("badneighbour", name -> name.plainCopy().withStyle(ChatFormatting.YELLOW).append(Component.literal(" \uD83D\uDE97")))
+			.put("jodlodi", name -> name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x992D22))))
+			.put("benimatic", name -> name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x11806A))))
+			.put("killer_demon", name -> name.plainCopy().withStyle(ChatFormatting.RED))
+			.put("drullkus", name -> name.plainCopy().withStyle(ChatFormatting.GOLD))
+			.put("tamaized", name -> name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFA4EA))))
+			.put("alphaleaf", name -> name.plainCopy().withStyle(ChatFormatting.GREEN))
+			.build();
 
 	public static final ModelLayerLocation PLAYER_TROPHY = new ModelLayerLocation(OpenBlocksTrophies.location("player_trophy"), "main");
 	public static final ModelLayerLocation SLIM_PLAYER_TROPHY = new ModelLayerLocation(OpenBlocksTrophies.location("slim_player_trophy"), "main");
@@ -49,8 +68,8 @@ public class ClientEvents {
 	//this event also handles rendering name tags of player trophies when hovering over them
 	public static void dontRenderTrophyHitbox(RenderHighlightEvent.Block event) {
 		BlockState state = event.getCamera().getEntity().level().getBlockState(event.getTarget().getBlockPos());
-		if (state.is(TrophyRegistries.TROPHY.get())) {
-			if (TrophyConfig.CLIENT_CONFIG.playersRenderNames.get()) {
+		if (state.is(TrophyRegistries.TROPHY)) {
+			if (TrophyConfig.playersRenderNames) {
 				if (event.getCamera().getEntity().level().getBlockEntity(event.getTarget().getBlockPos()) instanceof TrophyBlockEntity trophy) {
 					if (trophy.getTrophy() != null && trophy.getTrophy().type() == EntityType.PLAYER) {
 						if (!trophy.getTrophyName().isBlank()) {
@@ -92,49 +111,14 @@ public class ClientEvents {
 	private static Component handleSpecialNames(Component name) {
 		Component ogName = name;
 		if (ogName.getString().equalsIgnoreCase("gizmothemoonpig")) {
-			name = name.copy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0XFF3314)));
+			name = name.copy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0XFF3314))).append(Component.literal(" \uD83D\uDC51").withStyle(ChatFormatting.YELLOW));
 		}
 		if (ogName.getString().equalsIgnoreCase("tomatenjaeger")) {
 			name = name.plainCopy().append(Component.literal(" ❤").withStyle(ChatFormatting.RED));
 		}
-		if (TrophyConfig.CLIENT_CONFIG.renderNameColorsAndIcons.get()) {
-			if (ogName.getString().equalsIgnoreCase("celintro")) {
-				name = name.plainCopy().withStyle(ChatFormatting.GREEN).append(Component.literal(" ☠").withStyle(ChatFormatting.WHITE));
-			}
-			if (ogName.getString().equalsIgnoreCase("fastcheeta")) {
-				name = name.plainCopy().withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" \uD83C\uDF3C").withStyle(ChatFormatting.LIGHT_PURPLE));
-			}
-			if (ogName.getString().equalsIgnoreCase("derpderpling")) {
-				name = name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x641ACF)));
-			}
-			if (ogName.getString().equalsIgnoreCase("bigdious")) {
-				name = name.plainCopy().withStyle(ChatFormatting.DARK_RED).append(Component.literal(" ☺"));
-			}
-			if (ogName.getString().equalsIgnoreCase("melodioustwin")) {
-				name = name.plainCopy().withStyle(ChatFormatting.DARK_AQUA).append(Component.literal(" ♫"));
-			}
-			if (ogName.getString().equalsIgnoreCase("badneighbour")) {
-				name = name.plainCopy().withStyle(ChatFormatting.YELLOW).append(Component.literal(" \uD83D\uDE97"));
-			}
-
-			//TF devs
-			if (ogName.getString().equalsIgnoreCase("jodlodi")) {
-				name = name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x992D22)));
-			}
-			if (ogName.getString().equalsIgnoreCase("benimatic")) {
-				name = name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x11806A)));
-			}
-			if (ogName.getString().equalsIgnoreCase("killer_demon")) {
-				name = name.plainCopy().withStyle(ChatFormatting.RED);
-			}
-			if (ogName.getString().equalsIgnoreCase("drullkus")) {
-				name = name.plainCopy().withStyle(ChatFormatting.GOLD);
-			}
-			if (ogName.getString().equalsIgnoreCase("tamaized")) {
-				name = name.plainCopy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFA4EA)));
-			}
-			if (ogName.getString().equalsIgnoreCase("alphaleaf")) {
-				name = name.plainCopy().withStyle(ChatFormatting.GREEN);
+		if (TrophyConfig.renderNameColorsAndIcons) {
+			if (SPECIAL_CASES.containsKey(ogName.getString().toLowerCase())) {
+				name = SPECIAL_CASES.get(ogName.getString().toLowerCase()).apply(name);
 			}
 
 			if (PlayerInfoHolder.TF_DEVS.contains(ogName.getString().toLowerCase(Locale.ROOT))) {

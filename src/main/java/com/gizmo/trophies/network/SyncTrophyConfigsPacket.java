@@ -1,4 +1,4 @@
-package com.gizmo.trophies.misc;
+package com.gizmo.trophies.network;
 
 import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.trophy.Trophy;

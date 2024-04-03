@@ -1,7 +1,7 @@
 package com.gizmo.trophies.compat;
 
 import com.gizmo.trophies.OpenBlocksTrophies;
-import com.gizmo.trophies.misc.TrophyConfig;
+import com.gizmo.trophies.config.TrophyConfig;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -74,8 +74,8 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 	public void draw(TrophyInfoWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
 		EntityRenderer.render(graphics.pose(), recipe.getTrophyEntity(), 25, 42, recipe.getTrophyVariant(), recipe.getDefaultTrophyVariant());
 
-		if (!TrophyConfig.COMMON_CONFIG.anySourceDropsTrophies.get()) {
-			if (TrophyConfig.COMMON_CONFIG.fakePlayersDropTrophies.get()) {
+		if (!TrophyConfig.anySourceDropsTrophies) {
+			if (TrophyConfig.fakePlayersDropTrophies) {
 				this.fakePlayerIcon.draw(graphics, 54, 19);
 			} else {
 				this.playerIcon.draw(graphics, 54, 19);
@@ -103,9 +103,9 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 			components.add(Component.literal(this.getModIdForTooltip(BuiltInRegistries.ENTITY_TYPE.getKey(recipe.getTrophyEntity()).getNamespace())).withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC));
 		}
 
-		if (mouseX > 51 && mouseX < 73 && mouseY > 19 && mouseY < 34 && !TrophyConfig.COMMON_CONFIG.anySourceDropsTrophies.get()) {
+		if (mouseX > 51 && mouseX < 73 && mouseY > 19 && mouseY < 34 && !TrophyConfig.anySourceDropsTrophies) {
 			components.add(Component.translatable("gui.obtrophies.jei.player_drops").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-			if (TrophyConfig.COMMON_CONFIG.fakePlayersDropTrophies.get()) {
+			if (TrophyConfig.fakePlayersDropTrophies) {
 				components.add(Component.translatable("gui.obtrophies.jei.fake_player_drops").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 			}
 		}

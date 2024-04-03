@@ -1,6 +1,6 @@
 package com.gizmo.trophies.block;
 
-import com.gizmo.trophies.misc.TrophyConfig;
+import com.gizmo.trophies.config.TrophyConfig;
 import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.item.TrophyItem;
 import com.gizmo.trophies.misc.AmbientSoundFetcher;
@@ -132,7 +132,7 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 					if (soundData.getFirst() != null) {
 						level.playSound(null, pos, soundData.getFirst(), SoundSource.BLOCKS, 1.0F, soundData.getSecond());
 					}
-					if (trophyBE.getCooldown() <= 0 && trophy.clickBehavior().isPresent() && !TrophyConfig.COMMON_CONFIG.rightClickEffectOverride.get()) {
+					if (trophyBE.getCooldown() <= 0 && trophy.clickBehavior().isPresent() && !TrophyConfig.rightClickEffectOverride) {
 						trophyBE.setCooldown(trophy.clickBehavior().get().execute(trophyBE, (ServerPlayer) player, player.getItemInHand(hand)));
 					}
 				}
