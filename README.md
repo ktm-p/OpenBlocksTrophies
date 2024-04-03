@@ -16,17 +16,17 @@ Every trophy is registered through a json. A trophy json can look something like
   "scale": 1.0,
   "offset": 0.0,
   "behavior": {
-	"type": "obtrophies:explosion",
-	"destructive": false,
-	"power": 2.0
+    "type": "obtrophies:explosion",
+    "destructive": false,
+    "power": 2.0
   },
   "variants": [
-	{
-	  "powered": false
-	},
-	{
-	  "powered": true
-	}
+    {
+      "powered": false
+    },
+    {
+      "powered": true
+    }
   ]
 }
 ```
@@ -126,21 +126,21 @@ create a list of variants like so:
 
 ```json
 "variants": [
-{
-"Variant": 0
-},
-{
-"Variant": 1
-},
-{
-"Variant": 2
-},
-{
-"Variant": 3
-},
-{
-"Variant": 4
-}
+  {
+    "Variant": 0
+  },
+  {
+    "Variant": 1
+  },
+  {
+    "Variant": 2
+  },
+  {
+  "Variant": 3
+  },
+  {
+    "Variant": 4
+  }
 ]
 ```
 
@@ -160,8 +160,8 @@ the entity in question! Setting this up is simple:
 
 ```json
 "variant_registry": {
-"key": "variant",
-"registry": "minecraft:cat_variant"
+  "key": "variant",
+  "registry": "minecraft:cat_variant"
 }
 ```
 
@@ -176,8 +176,8 @@ add all profession variants to your mob!
 
 ```json
 "variant_registry": {
-"key": "profession",
-"registry": "minecraft:villager_profession"
+  "key": "profession",
+  "registry": "minecraft:villager_profession"
 }
 ```
 
@@ -192,22 +192,22 @@ Example:
 
 ```json
 "default_variant": {
-"ArmorItems": [
-{},
-{},
-{},
-{
-"Count": 1,
-"id": "minecraft:iron_helmet"
-}
-],
-"HandItems": [
-{
-"Count": 1,
-"id": "minecraft:cookie"
-},
-{}
-]
+  "ArmorItems": [
+    {},
+    {},
+    {},
+    {
+      "Count": 1,
+      "id": "minecraft:iron_helmet"
+    }
+  ],
+  "HandItems": [
+    {
+      "Count": 1,
+      "id": "minecraft:cookie"
+    },
+    {}
+  ]
 },
 ```
 
