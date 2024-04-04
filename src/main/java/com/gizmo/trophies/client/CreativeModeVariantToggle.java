@@ -80,26 +80,29 @@ public class CreativeModeVariantToggle {
 	}
 
 	private static void updateItems(CreativeModeInventoryScreen screen) {
-		CreativeModeInventoryScreen.selectedTab.buildContents(buildParams());
+		var params = buildParams();
+		CreativeModeInventoryScreen.selectedTab.buildContents(params);
 		CreativeModeInventoryScreen.ItemPickerMenu menu = screen.getMenu();
 		menu.items.clear();
-		menu.items.addAll(getTrophyList(Minecraft.getInstance().level.registryAccess(), CreativeModeTabSearchRegistry.getNameSearchKey(CreativeModeInventoryScreen.selectedTab), screen.searchBox.getValue()));
+		menu.items.addAll(getTrophyList(Minecraft.getInstance().level.registryAccess(), params.enabledFeatures(), CreativeModeTabSearchRegistry.getNameSearchKey(CreativeModeInventoryScreen.selectedTab), screen.searchBox.getValue()));
 		menu.scrollTo(0);
 		screen.scrollOffs = 0.0F;
 	}
 
-	private static List<ItemStack> getTrophyList(RegistryAccess access, @Nullable SearchRegistry.Key<ItemStack> searchTree, String queriedSearch) {
+	private static List<ItemStack> getTrophyList(RegistryAccess access, FeatureFlagSet set, @Nullable SearchRegistry.Key<ItemStack> searchTree, String queriedSearch) {
 		List<ItemStack> trophies = new ArrayList<>();
 		if (!Trophy.getTrophies().isEmpty()) {
 			Map<ResourceLocation, Trophy> sortedTrophies = new TreeMap<>(Comparator.naturalOrder());
 			sortedTrophies.putAll(Trophy.getTrophies());
 			for (Map.Entry<ResourceLocation, Trophy> trophyEntry : sortedTrophies.entrySet()) {
-				if (!trophyEntry.getValue().getVariants(access).isEmpty() && showVariants.isSelected()) {
-					for (int i = 0; i < trophyEntry.getValue().getVariants(access).size(); i++) {
-						trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), i, false));
+				if (trophyEntry.getValue().type().isEnabled(set)) {
+					if (!trophyEntry.getValue().getVariants(access).isEmpty() && showVariants.isSelected()) {
+						for (int i = 0; i < trophyEntry.getValue().getVariants(access).size(); i++) {
+							trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), i, false));
+						}
+					} else {
+						trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), 0, false));
 					}
-				} else {
-					trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), 0, false));
 				}
 			}
 		}
