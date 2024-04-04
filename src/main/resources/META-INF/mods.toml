@@ -12,13 +12,13 @@ logoFile = "trophy.png"
 credits = "Original Trophies made by the OpenMods team"
 authors = "GizmoTheMoonPig"
 description = '''
-Brings back the trophies from Openblocks.
+Brings back the trophies from OpenBlocks.
 '''
 
 [[dependencies.obtrophies]]
 modId = "neoforge"
 type = "required"
-versionRange = "[1,)"
+versionRange = "[20.4.167)"
 ordering = "NONE"
 side = "BOTH"
 
