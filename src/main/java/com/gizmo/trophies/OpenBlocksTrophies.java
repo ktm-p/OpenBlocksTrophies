@@ -45,7 +45,7 @@ public class OpenBlocksTrophies {
 
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-	public static final ResourceKey<Registry<CustomBehaviorType>> CUSTOM_BEHAVIORS_KEY = ResourceKey.createRegistryKey(OpenBlocksTrophies.location("custom_behavior"));
+	public static final ResourceKey<Registry<CustomBehaviorType>> CUSTOM_BEHAVIORS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "custom_behavior"));
 	public static final Registry<CustomBehaviorType> CUSTOM_BEHAVIORS = new RegistryBuilder<>(CUSTOM_BEHAVIORS_KEY).sync(true).create();
 
 	public OpenBlocksTrophies(IEventBus bus, Dist dist) {
@@ -77,10 +77,6 @@ public class OpenBlocksTrophies {
 		TrophyRegistries.TABS.register(bus);
 
 		CustomTrophyBehaviors.CUSTOM_BEHAVIORS.register(bus);
-	}
-
-	public static ResourceLocation location(String path) {
-		return new ResourceLocation(MODID, path);
 	}
 
 	public void gatherData(GatherDataEvent event) {

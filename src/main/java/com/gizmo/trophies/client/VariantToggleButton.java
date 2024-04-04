@@ -13,10 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.function.Supplier;
 
 public class VariantToggleButton extends Button {
-	private static final ResourceLocation CHECKBOX_SELECTED_HOVERED_SPRITE = OpenBlocksTrophies.location("textures/gui/sprites/check_box_selected_hovered.png");
-	private static final ResourceLocation CHECKBOX_SELECTED_SPRITE = OpenBlocksTrophies.location("textures/gui/sprites/check_box_selected.png");
-	private static final ResourceLocation CHECKBOX_HOVERED_SPRITE = OpenBlocksTrophies.location("textures/gui/sprites/check_box_hovered.png");
-	private static final ResourceLocation CHECKBOX_SPRITE = OpenBlocksTrophies.location("textures/gui/sprites/check_box.png");
+	private static final ResourceLocation CHECKBOX_SELECTED_HOVERED_SPRITE = new ResourceLocation(OpenBlocksTrophies.MODID, "textures/gui/sprites/check_box_selected_hovered.png");
+	private static final ResourceLocation CHECKBOX_SELECTED_SPRITE = new ResourceLocation(OpenBlocksTrophies.MODID, "textures/gui/sprites/check_box_selected.png");
+	private static final ResourceLocation CHECKBOX_HOVERED_SPRITE = new ResourceLocation(OpenBlocksTrophies.MODID, "textures/gui/sprites/check_box_hovered.png");
+	private static final ResourceLocation CHECKBOX_SPRITE = new ResourceLocation(OpenBlocksTrophies.MODID, "textures/gui/sprites/check_box.png");
 
 	private boolean selected;
 

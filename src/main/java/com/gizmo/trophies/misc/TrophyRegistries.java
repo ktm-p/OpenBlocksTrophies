@@ -7,6 +7,7 @@ import com.gizmo.trophies.item.TrophyItem;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -33,11 +34,10 @@ public class TrophyRegistries {
 
 	public static final DeferredHolder<Codec<? extends IGlobalLootModifier>, Codec<AddTrophyModifier>> ADD_QUEST_RAM_TROPHY = LOOT_MODIFIERS.register("add_trophy", () -> AddTrophyModifier.CODEC);
 
-	public static final DeferredHolder<SoundEvent, SoundEvent> OOF = SOUNDS.register("entity.obtrophies.player.oof", () -> SoundEvent.createVariableRangeEvent(OpenBlocksTrophies.location("entity.obtrophies.player.oof")));
+	public static final DeferredHolder<SoundEvent, SoundEvent> OOF = SOUNDS.register("entity.obtrophies.player.oof", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(OpenBlocksTrophies.MODID, "entity.obtrophies.player.oof")));
 
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TROPHY_TAB = TABS.register("trophies", () -> CreativeModeTab.builder()
 			.title(Component.translatable("itemGroup.obtrophies"))
-			.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 			.withSearchBar()
 			.icon(TrophyTabHelper::makeIcon)
 			.displayItems((params, output) -> TrophyTabHelper.getAllTrophies(output, params.holders(), params.enabledFeatures(), TrophyTabHelper.shouldShowVariants()))

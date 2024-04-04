@@ -12,7 +12,7 @@ import java.util.Map;
 
 public record SyncTrophyConfigsPacket(Map<ResourceLocation, Trophy> trophies) implements CustomPacketPayload {
 
-	public static final ResourceLocation ID = OpenBlocksTrophies.location("sync_trophy_configs");
+	public static final ResourceLocation ID = new ResourceLocation(OpenBlocksTrophies.MODID, "sync_trophy_configs");
 
 	public SyncTrophyConfigsPacket(FriendlyByteBuf buf) {
 		this(buf.readMap(FriendlyByteBuf::readResourceLocation, buf1 -> buf1.readJsonWithCodec(Trophy.BASE_CODEC)));
