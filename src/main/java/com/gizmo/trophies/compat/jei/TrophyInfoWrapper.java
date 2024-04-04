@@ -1,4 +1,4 @@
-package com.gizmo.trophies.compat;
+package com.gizmo.trophies.compat.jei;
 
 import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.item.TrophyItem;
@@ -18,20 +18,8 @@ public record TrophyInfoWrapper(Trophy trophy, int variant) implements IRecipeCa
 		return this.trophy().type();
 	}
 
-	public double getTrophyDropPercentage() {
-		return OpenBlocksTrophies.getTrophyDropChance(this.trophy()) * 100;
-	}
-
 	public ItemStack getTrophyItem() {
 		return TrophyItem.loadEntityToTrophy(this.trophy().type(), this.variant(), false);
-	}
-
-	@Nullable
-	public CompoundTag getTrophyVariant() {
-		if (!this.trophy().getVariants(Minecraft.getInstance().level.registryAccess()).isEmpty()) {
-			return this.trophy().getVariants(Minecraft.getInstance().level.registryAccess()).get(this.variant());
-		}
-		return null;
 	}
 
 	public Optional<CompoundTag> getDefaultTrophyVariant() {

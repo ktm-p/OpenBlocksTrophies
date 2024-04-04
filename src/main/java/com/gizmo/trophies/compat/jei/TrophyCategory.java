@@ -1,6 +1,6 @@
-package com.gizmo.trophies.compat;
+package com.gizmo.trophies.compat.jei;
 
-import com.gizmo.trophies.OpenBlocksTrophies;
+import com.gizmo.trophies.compat.TrophyRecipeViewerConstants;
 import com.gizmo.trophies.config.TrophyConfig;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,7 +17,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
@@ -31,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
-	public static final int WIDTH = 116;
-	public static final int HEIGHT = 54;
 	private final IDrawable background;
 	private final IDrawable icon;
 	private final IDrawable fakePlayerIcon;
@@ -41,11 +38,10 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 	private final Component localizedName;
 
 	public TrophyCategory(IGuiHelper helper) {
-		ResourceLocation location = OpenBlocksTrophies.location("textures/gui/trophy_jei.png");
-		this.background = helper.createDrawable(location, 0, 0, WIDTH, HEIGHT);
-		this.fakePlayerIcon = helper.createDrawable(location, 116, 0, 16, 16);
-		this.playerIcon = helper.createDrawable(location, 116, 16, 16, 16);
-		this.arrowIcon = helper.createDrawable(location, 116, 32, 23, 15);
+		this.background = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 0, 0, TrophyRecipeViewerConstants.WIDTH, TrophyRecipeViewerConstants.HEIGHT);
+		this.fakePlayerIcon = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 116, 0, 16, 16);
+		this.playerIcon = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 116, 16, 16, 16);
+		this.arrowIcon = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 116, 32, 23, 15);
 		this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, Items.DIAMOND_SWORD.getDefaultInstance());
 		this.localizedName = Component.translatable("gui.obtrophies.trophy_jei");
 	}
@@ -72,7 +68,7 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 
 	@Override
 	public void draw(TrophyInfoWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-		EntityRenderer.render(graphics.pose(), recipe.getTrophyEntity(), 25, 42, recipe.getTrophyVariant(), recipe.getDefaultTrophyVariant());
+		TrophyRecipeViewerConstants.renderEntity(graphics.pose(), recipe.getTrophyEntity(), 25, 42, TrophyRecipeViewerConstants.getTrophyVariant(recipe.trophy(), recipe.variant()), recipe.getDefaultTrophyVariant());
 
 		if (!TrophyConfig.anySourceDropsTrophies) {
 			if (TrophyConfig.fakePlayersDropTrophies) {
@@ -89,7 +85,7 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 			AbstractContainerScreen.renderSlotHighlight(graphics, 10, 27, 0);
 			AbstractContainerScreen.renderSlotHighlight(graphics, 26, 27, 0);
 		}
-		graphics.drawString(Minecraft.getInstance().font, Component.translatable("gui.obtrophies.jei.drop_chance", recipe.getTrophyDropPercentage()), 46, 45, 0xFF808080, false);
+		graphics.drawString(Minecraft.getInstance().font, Component.translatable("gui.obtrophies.jei.drop_chance", TrophyRecipeViewerConstants.getTrophyDropPercentage(recipe.trophy())), 46, 45, 0xFF808080, false);
 	}
 
 	@Override

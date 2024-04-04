@@ -25,6 +25,7 @@
   "item.obtrophies.trophy.variant": "\"%s\": \"%s\"",
   "itemGroup.obtrophies": "Trophies",
   "gui.obtrophies.trophy_jei": "Trophy Drops",
+  "emi.category.obtrophies.trophy": "Trophy Drops",
   "gui.obtrophies.jei.drop_chance": "Chance: %s%%",
   "gui.obtrophies.jei.fake_player_drops": "(fake players count)",
   "gui.obtrophies.jei.player_drops": "Drops on player kill only"

@@ -1,5 +1,10 @@
 {
   "drop_chance": 0.0075,
   "entity": "twilightforest:naga",
-  "scale": 0.75
+  "scale": 0.75,
+  "offset": [
+    0.0,
+    -0.3,
+    0.0
+  ]
 }

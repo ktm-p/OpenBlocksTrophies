@@ -91,9 +91,9 @@ repositories {
 
 dependencies {
 	//make sure to only pick one of these when testing (switch others to compileOnly)
-	implementation "mezz.jei:jei-${project.minecraft_version}-neoforge:${project.jei_version}"
+	compileOnly "mezz.jei:jei-${project.minecraft_version}-neoforge:${project.jei_version}"
 	compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${project.rei_version}"
-	compileOnly "dev.emi:emi-neoforge:${project.emi_version}+${project.minecraft_version}"
+	implementation "dev.emi:emi-neoforge:${project.emi_version}+${project.minecraft_version}"
 
 	compileOnly "curse.maven:jade-324717:4980188"
 	runtimeOnly "teamtwilight:twilightforest:4.4.2166:universal"

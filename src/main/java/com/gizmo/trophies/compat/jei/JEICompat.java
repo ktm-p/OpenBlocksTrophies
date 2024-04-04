@@ -1,4 +1,4 @@
-package com.gizmo.trophies.compat;
+package com.gizmo.trophies.compat.jei;
 
 import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.misc.TrophyRegistries;
@@ -26,7 +26,7 @@ public class JEICompat implements IModPlugin {
 
 	@Override
 	public ResourceLocation getPluginUid() {
-		return OpenBlocksTrophies.location("trophies");
+		return new ResourceLocation(OpenBlocksTrophies.MODID, "trophies");
 	}
 
 	@Override
