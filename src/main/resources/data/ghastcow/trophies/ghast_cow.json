@@ -1,6 +1,10 @@
 {
   "drop_chance": 0.0075,
   "entity": "ghastcow:ghast_cow",
-  "offset": 0.3,
-  "scale": 0.75
+  "offset": [
+    0.0,
+    0.3,
+    0.0
+  ],
+  "scale": 0.65
 }

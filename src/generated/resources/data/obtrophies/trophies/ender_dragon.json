@@ -16,5 +16,10 @@
     "shrink_item_stack": true
   },
   "drop_chance": 0.0075,
+  "rotation": [
+    0.0,
+    180.0,
+    0.0
+  ],
   "scale": 0.25
 }

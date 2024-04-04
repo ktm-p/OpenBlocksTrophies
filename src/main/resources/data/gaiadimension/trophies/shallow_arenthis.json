@@ -1,5 +1,9 @@
 {
   "entity": "gaiadimension:shallow_arenthis",
-  "offset": 0.3,
+  "offset": [
+    0.0,
+    0.3,
+    0.0
+  ],
   "scale": 1.5
 }

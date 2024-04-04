@@ -1,13 +1,17 @@
 {
   "behavior": {
-	"type": "obtrophies:item",
-	"cooldown": 10000,
-	"item": {
-	  "Count": 1,
-	  "id": "minecraft:snowball"
-	}
+    "type": "obtrophies:item",
+    "cooldown": 10000,
+    "item": {
+      "Count": 1,
+      "id": "minecraft:snowball"
+    }
   },
   "entity": "twilightforest:ice_crystal",
-  "offset": -0.25,
+  "offset": [
+    0.0,
+    -0.25,
+    0.0
+  ],
   "scale": 1.25
 }

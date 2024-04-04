@@ -1,13 +1,17 @@
 {
   "behavior": {
-	"type": "obtrophies:item",
-	"cooldown": 20000,
-	"item": {
-	  "Count": 1,
-	  "id": "minecraft:ghast_tear"
-	}
+    "type": "obtrophies:item",
+    "cooldown": 20000,
+    "item": {
+      "Count": 1,
+      "id": "minecraft:ghast_tear"
+    }
   },
   "entity": "twilightforest:carminite_ghastguard",
   "scale": 0.25,
-  "offset": 0.05
+  "offset": [
+    0.0,
+    0.05,
+    0.0
+  ]
 }

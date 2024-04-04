@@ -1,5 +1,9 @@
 {
   "entity": "grimoireofgaia:deathword",
-  "offset": 0.2,
+  "offset": [
+    0.0,
+    0.2,
+    0.0
+  ],
   "scale": 1.5
 }

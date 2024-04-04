@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.WithConditions;
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public record Trophy(boolean replace, EntityType<?> type, double dropChance, double verticalOffset, float scale, Optional<CustomBehavior> clickBehavior, Either<Pair<String, ResourceLocation>, List<CompoundTag>> variants, Optional<CompoundTag> defaultData) {
+public record Trophy(boolean replace, EntityType<?> type, double dropChance, Vec3 offset, Vec3 rotation, float scale, Optional<CustomBehavior> clickBehavior, Either<Pair<String, ResourceLocation>, List<CompoundTag>> variants, Optional<CompoundTag> defaultData) {
 
 	public static final double DEFAULT_DROP_CHANCE = 0.001D;
 	public static final double BOSS_DROP_CHANCE = 0.0075D;
@@ -32,7 +33,8 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, dou
 			Codec.BOOL.optionalFieldOf("replace", false).forGetter(Trophy::replace),
 			BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(Trophy::type),
 			Codec.DOUBLE.optionalFieldOf("drop_chance", DEFAULT_DROP_CHANCE).forGetter(Trophy::dropChance),
-			Codec.DOUBLE.optionalFieldOf("offset", 0.0D).forGetter(Trophy::verticalOffset),
+			Vec3.CODEC.optionalFieldOf("offset", Vec3.ZERO).forGetter(Trophy::offset),
+			Vec3.CODEC.optionalFieldOf("rotation", Vec3.ZERO).forGetter(Trophy::rotation),
 			Codec.FLOAT.optionalFieldOf("scale", 1.0F).forGetter(Trophy::scale),
 			CustomBehaviorType.DISPATCH_CODEC.optionalFieldOf("behavior").forGetter(Trophy::clickBehavior),
 			Codec.either(Codec.pair(Codec.STRING.fieldOf("key").codec(), ResourceLocation.CODEC.fieldOf("registry").codec()), CompoundTag.CODEC.listOf()).optionalFieldOf("variants", Either.right(new ArrayList<>())).forGetter(Trophy::variants),
@@ -90,7 +92,8 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, dou
 		private boolean replace;
 		private final EntityType<?> type;
 		private double dropChance = 0.001D;
-		private double verticalOffset = 0.0D;
+		private Vec3 offset = Vec3.ZERO;
+		private Vec3 rotation = Vec3.ZERO;
 		private float scale = 1.0F;
 		@Nullable
 		private CustomBehavior clickBehavior = null;
@@ -107,7 +110,8 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, dou
 
 		public Builder copyFrom(Trophy trophy) {
 			this.dropChance = trophy.dropChance();
-			this.verticalOffset = trophy.verticalOffset();
+			this.offset = trophy.offset();
+			this.rotation = trophy.rotation();
 			this.scale = trophy.scale();
 			this.clickBehavior = trophy.clickBehavior().orElse(null);
 			this.registryVariant = trophy.variants().left().orElse(null);
@@ -126,8 +130,13 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, dou
 			return this;
 		}
 
-		public Trophy.Builder setVerticalOffset(double offset) {
-			this.verticalOffset = offset;
+		public Trophy.Builder setOffset(double xOffset, double yOffset, double zOffset) {
+			this.offset = new Vec3(xOffset, yOffset, zOffset);
+			return this;
+		}
+
+		public Trophy.Builder setRotation(double xOffset, double yOffset, double zOffset) {
+			this.rotation = new Vec3(xOffset, yOffset, zOffset);
 			return this;
 		}
 
@@ -202,7 +211,7 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, dou
 		}
 
 		public Trophy build() {
-			return new Trophy(this.replace, this.type, this.dropChance, this.verticalOffset, this.scale, Optional.ofNullable(this.clickBehavior), (this.registryVariant != null ? Either.left(this.registryVariant) : Either.right(this.variants)), Optional.ofNullable(this.defaultVariant));
+			return new Trophy(this.replace, this.type, this.dropChance, this.offset, this.rotation, this.scale, Optional.ofNullable(this.clickBehavior), (this.registryVariant != null ? Either.left(this.registryVariant) : Either.right(this.variants)), Optional.ofNullable(this.defaultVariant));
 		}
 	}
 }

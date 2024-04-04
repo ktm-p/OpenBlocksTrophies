@@ -1,5 +1,9 @@
 {
   "entity": "minecraft:ghast",
-  "offset": 0.35,
+  "offset": [
+    0.0,
+    0.35,
+    0.0
+  ],
   "scale": 0.25
 }

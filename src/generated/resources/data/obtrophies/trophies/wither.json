@@ -1,6 +1,10 @@
 {
   "entity": "minecraft:wither",
   "drop_chance": 0.0075,
-  "offset": -0.2,
+  "offset": [
+    0.0,
+    -0.2,
+    0.0
+  ],
   "scale": 0.75
 }

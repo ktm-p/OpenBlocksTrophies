@@ -3,6 +3,7 @@ package com.gizmo.trophies.data;
 import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.behavior.*;
 import com.gizmo.trophies.trophy.Trophy;
+import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
@@ -62,10 +63,10 @@ public class TrophyGenerator extends TrophyProvider {
 		this.makeTrophy(new Trophy.Builder(EntityType.SPIDER));
 		this.makeTrophy(new Trophy.Builder(EntityType.CAVE_SPIDER).setRightClickBehavior(new MobEffectBehavior(MobEffects.POISON, 200, 0)));
 		this.makeTrophy(new Trophy.Builder(EntityType.SLIME).setScale(1.25F));
-		this.makeTrophy(new Trophy.Builder(EntityType.GHAST).setVerticalOffset(0.35D).setScale(0.25F));
+		this.makeTrophy(new Trophy.Builder(EntityType.GHAST).setOffset(0.0D, 0.35D, 0.0D).setScale(0.25F));
 		this.makeTrophy(new Trophy.Builder(EntityType.ENDERMAN).setScale(0.75F).setRightClickBehavior(new ShootEnderPearlBehavior()));
 		this.makeTrophy(new Trophy.Builder(EntityType.MAGMA_CUBE).setScale(1.25F));
-		this.makeTrophy(new Trophy.Builder(EntityType.SQUID).setVerticalOffset(0.5D).setRightClickBehavior(new PlaceBlockBehavior(Blocks.WATER, PlaceBlockBehavior.PlacementMethod.ABOVE)));
+		this.makeTrophy(new Trophy.Builder(EntityType.SQUID).setOffset(0.0D, 0.5D, 0.0D).setRightClickBehavior(new PlaceBlockBehavior(Blocks.WATER, PlaceBlockBehavior.PlacementMethod.ABOVE)));
 		this.makeTrophy(new Trophy.Builder(EntityType.MOOSHROOM).setRightClickBehavior(new PlaceBlockBehavior(Blocks.RED_MUSHROOM, PlaceBlockBehavior.PlacementMethod.AROUND))
 				.addVariant("Type", MushroomCow.MushroomType.RED.getSerializedName())
 				.addVariant("Type", MushroomCow.MushroomType.BROWN.getSerializedName()));
@@ -182,9 +183,10 @@ public class TrophyGenerator extends TrophyProvider {
 		this.makeTrophy(new Trophy.Builder(EntityType.PHANTOM).setRightClickBehavior(new ItemDropBehavior(Items.PHANTOM_MEMBRANE, 20000)));
 		this.makeTrophy(new Trophy.Builder(EntityType.TURTLE));
 		this.makeTrophy(new Trophy.Builder(EntityType.CAT).setScale(1.25F).setRightClickBehavior(new PullFromLootTableBehavior(BuiltInLootTables.CAT_MORNING_GIFT, 20000)).addRegistryVariant("variant", Registries.CAT_VARIANT.location()));
-		this.makeTrophy(new Trophy.Builder(EntityType.FOX).setRightClickBehavior(new ItemDropBehavior(Items.SWEET_BERRIES, 20000))
+		this.makeTrophy(new Trophy.Builder(EntityType.FOX).setRotation(0.0D, -90.0D, 0.0D).setRightClickBehavior(new ItemDropBehavior(Items.SWEET_BERRIES, 20000))
 				.addVariant("Type", Fox.Type.RED.getSerializedName())
-				.addVariant("Type", Fox.Type.SNOW.getSerializedName()));
+				.addVariant("Type", Fox.Type.SNOW.getSerializedName())
+				.addDefaultVariant(Util.make(new CompoundTag(), tag -> tag.putBoolean("Sleeping", true))));
 		this.makeTrophy(new Trophy.Builder(EntityType.PANDA).setScale(0.75F).setRightClickBehavior(new ItemDropBehavior(Items.BAMBOO, 20000))
 				.addVariant(this.buildPandaVariant(Panda.Gene.NORMAL.getSerializedName()))
 				.addVariant(this.buildPandaVariant(Panda.Gene.LAZY.getSerializedName()))
@@ -209,14 +211,14 @@ public class TrophyGenerator extends TrophyProvider {
 				.addVariant("Variant", 2)
 				.addVariant("Variant", 3)
 				.addVariant("Variant", 4));
-		this.makeTrophy(new Trophy.Builder(EntityType.GLOW_SQUID).setVerticalOffset(0.5D).setRightClickBehavior(new MobEffectBehavior(MobEffects.GLOWING, 200, 0)));
+		this.makeTrophy(new Trophy.Builder(EntityType.GLOW_SQUID).setOffset(0.0D, 0.5D, 0.0D).setRightClickBehavior(new MobEffectBehavior(MobEffects.GLOWING, 200, 0)));
 		this.makeTrophy(new Trophy.Builder(EntityType.GOAT).setRightClickBehavior(new ClickWithItemBehavior(Items.BUCKET, true, new ItemDropBehavior(Items.MILK_BUCKET), 0, SoundEvents.GOAT_MILK)));
 		this.makeTrophy(new Trophy.Builder(EntityType.ALLAY).setScale(1.75F));
 		this.makeTrophy(new Trophy.Builder(EntityType.FROG).setScale(1.5F).setRightClickBehavior(new ItemDropBehavior(Items.SLIME_BALL, 20000)).addRegistryVariant("variant", Registries.FROG_VARIANT.location()));
 		this.makeTrophy(new Trophy.Builder(EntityType.TADPOLE).setScale(2.0F));
 		this.makeTrophy(new Trophy.Builder(EntityType.WARDEN).setScale(0.75F).setRightClickBehavior(new MobEffectBehavior(MobEffects.DARKNESS, 200, 0)));
-		this.makeTrophy(new Trophy.Builder(EntityType.WITHER).setDropChance(0.0075D).setVerticalOffset(-0.2D).setScale(0.75F));
-		this.makeTrophy(new Trophy.Builder(EntityType.ENDER_DRAGON).setDropChance(0.0075D).setScale(0.25F).setRightClickBehavior(new ClickWithItemBehavior(Items.GLASS_BOTTLE, true, new ItemDropBehavior(Items.DRAGON_BREATH))));
+		this.makeTrophy(new Trophy.Builder(EntityType.WITHER).setDropChance(0.0075D).setOffset(0.0D, -0.2D, 0.0D).setScale(0.75F));
+		this.makeTrophy(new Trophy.Builder(EntityType.ENDER_DRAGON).setDropChance(0.0075D).setRotation(0.0D, 180.0D, 0.0D).setScale(0.25F).setRightClickBehavior(new ClickWithItemBehavior(Items.GLASS_BOTTLE, true, new ItemDropBehavior(Items.DRAGON_BREATH))));
 		this.makeTrophy(new Trophy.Builder(EntityType.CAMEL).setScale(0.75F));
 		this.makeTrophy(new Trophy.Builder(EntityType.SNIFFER).setScale(0.5F).setRightClickBehavior(new PullFromLootTableBehavior(BuiltInLootTables.SNIFFER_DIGGING, 20000)));
 		//TODO 1.20.5 make breeze trophies either shoot wind charges or drop breeze rods

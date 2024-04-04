@@ -1,4 +1,8 @@
 {
   "entity": "monsterplus:lava_squid",
-  "offset": 0.5
+  "offset": [
+    0.0,
+    0.5,
+    0.0
+  ]
 }

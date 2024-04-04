@@ -1,14 +1,18 @@
 {
   "behavior": {
-	"type": "obtrophies:item",
-	"cooldown": 10000,
-	"item": {
-	  "Count": 1,
-	  "id": "alexsmobs:bear_dust"
-	}
+    "type": "obtrophies:item",
+    "cooldown": 10000,
+    "item": {
+      "Count": 1,
+      "id": "alexsmobs:bear_dust"
+    }
   },
   "drop_chance": 0.0075,
   "entity": "alexsmobs:sea_bear",
-  "offset": 0.2,
+  "offset": [
+    0.0,
+    0.2,
+    0.0
+  ],
   "scale": 0.8
 }

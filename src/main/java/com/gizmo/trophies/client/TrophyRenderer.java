@@ -29,6 +29,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaterniond;
+import org.joml.Quaternionf;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -110,8 +112,8 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 				} else {
 					entity.tickCount = 0;
 				}
-				entity.setPos(pos.getX() + 0.5D, pos.getY() + 0.25D + trophy.verticalOffset(), pos.getZ() + 0.5D);
-				stack.translate(0.5F, 0.25D + trophy.verticalOffset(), 0.5F);
+				entity.setPos(pos.getX() + 0.5D + trophy.offset().x(), pos.getY() + 0.25D + trophy.offset().y(), pos.getZ() + 0.5D + trophy.offset().z());
+				stack.translate(0.5F + trophy.offset().x(), 0.25D + trophy.offset().y(), 0.5F + trophy.offset().z());
 				if (be != null) {
 					//they watch
 					if (LocalDate.of(LocalDate.now().getYear(), 4, 1).equals(LocalDate.now())) {
@@ -131,9 +133,9 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 					}
 				}
 
-				if (entity instanceof EnderDragon) {
-					stack.mulPose(Axis.YP.rotationDegrees(180.0F));
-				}
+				stack.mulPose(Axis.XP.rotationDegrees((float) trophy.rotation().x()));
+				stack.mulPose(Axis.YP.rotationDegrees((float) trophy.rotation().y()));
+				stack.mulPose(Axis.ZP.rotationDegrees((float) trophy.rotation().z()));
 
 				stack.scale(0.4F, 0.4F, 0.4F);
 				stack.scale(trophy.scale(), trophy.scale(), trophy.scale());
