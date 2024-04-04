@@ -1,6 +1,6 @@
 ![Trophy Logo](https://i.imgur.com/t1i9eZc.png)
 
-[![Curseforge](http://cf.way2muchnoise.eu/full_683319_downloads.svg)](https://minecraft.curseforge.com/projects/openblocks-trophies) [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_683319_all.svg)](https://minecraft.curseforge.com/projects/openblocks-trophies)
+[![Curseforge](http://cf.way2muchnoise.eu/full_683319_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/openblocks-trophies) [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_683319_all.svg)](https://www.curseforge.com/minecraft/mc-mods/openblocks-trophies)
 
 A "small" mod that brings back the trophy block from the mod OpenBlocks in a mod friendly way!
 
