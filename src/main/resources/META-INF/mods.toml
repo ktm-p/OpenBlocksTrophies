@@ -18,7 +18,7 @@ Brings back the trophies from OpenBlocks.
 [[dependencies.obtrophies]]
 modId = "neoforge"
 type = "required"
-versionRange = "[20.4.167)"
+versionRange = "[20.4.167,)"
 ordering = "NONE"
 side = "BOTH"
 
