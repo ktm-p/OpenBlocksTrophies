@@ -14,6 +14,7 @@ import com.gizmo.trophies.network.SyncCommonConfigPacket;
 import com.gizmo.trophies.network.SyncTrophyConfigsPacket;
 import com.gizmo.trophies.trophy.Trophy;
 import com.gizmo.trophies.trophy.TrophyReloadListener;
+import com.google.common.reflect.Reflection;
 import net.minecraft.DetectedVersion;
 import net.minecraft.core.Registry;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -49,6 +50,7 @@ public class OpenBlocksTrophies {
 	public static final Registry<CustomBehaviorType> CUSTOM_BEHAVIORS = new RegistryBuilder<>(CUSTOM_BEHAVIORS_KEY).sync(true).create();
 
 	public OpenBlocksTrophies(IEventBus bus, Dist dist) {
+		Reflection.initialize(ConfigSetup.class);
 		if (dist.isClient()) {
 			ClientEvents.init(bus);
 			CreativeModeVariantToggle.setupButton();
