@@ -21,12 +21,14 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.util.Locale;
@@ -51,8 +53,8 @@ public class ClientEvents {
 			.put("alphaleaf", name -> name.plainCopy().withStyle(ChatFormatting.GREEN))
 			.build();
 
-	public static final ModelLayerLocation PLAYER_TROPHY = new ModelLayerLocation(new ResourceLocation(OpenBlocksTrophies.MODID, "player_trophy"), "main");
-	public static final ModelLayerLocation SLIM_PLAYER_TROPHY = new ModelLayerLocation(new ResourceLocation(OpenBlocksTrophies.MODID, "slim_player_trophy"), "main");
+	public static final ModelLayerLocation PLAYER_TROPHY = new ModelLayerLocation(OpenBlocksTrophies.prefix("player_trophy"), "main");
+	public static final ModelLayerLocation SLIM_PLAYER_TROPHY = new ModelLayerLocation(OpenBlocksTrophies.prefix("slim_player_trophy"), "main");
 
 	public static void init(IEventBus bus) {
 		bus.addListener(EntityRenderersEvent.RegisterRenderers.class, event -> event.registerBlockEntityRenderer(TrophyRegistries.TROPHY_BE.get(), TrophyRenderer::new));

@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -91,14 +92,14 @@ public class TrophiesCommands {
 		for (IModInfo info : ModList.get().getMods()) {
 			modids.add(info.getModId());
 		}
-		modids.add(0, "all");
+		modids.addFirst("all");
 		Collections.sort(modids);
 		return modids;
 	}
 
 	public static List<ResourceLocation> getAllRegistries(ServerLevel level) {
 		List<ResourceLocation> registries = new ArrayList<>(level.registryAccess().registries().map(registryEntry -> registryEntry.key().location()).toList());
-		registries.add(0, new ResourceLocation("", "all"));
+		registries.addFirst(ResourceLocation.fromNamespaceAndPath("", "all"));
 		return registries;
 	}
 
@@ -158,13 +159,15 @@ public class TrophiesCommands {
 				if (index > amount - 1) break;
 				Trophy trophy = sortedTrophies.entrySet().stream().toList().get(index).getValue();
 				if (placeVariants && !trophy.getVariants(context.getSource().getLevel().registryAccess()).isEmpty()) {
-					for (int v = 0; v < trophy.getVariants(context.getSource().getLevel().registryAccess()).size(); v++) {
-						BlockPos pos = BlockPos.containing(context.getSource().getPosition()).offset(i, v, j);
-						setupTrophy(context.getSource().getLevel(), pos, trophy, v);
+					int yOffs = 0;
+					for (CompoundTag tag : trophy.getVariants(context.getSource().getLevel().registryAccess())) {
+						BlockPos pos = BlockPos.containing(context.getSource().getPosition()).offset(i, yOffs, j);
+						setupTrophy(context.getSource().getLevel(), pos, trophy, tag);
+						yOffs++;
 					}
 				} else {
 					BlockPos pos = BlockPos.containing(context.getSource().getPosition()).offset(i, 0, j);
-					setupTrophy(context.getSource().getLevel(), pos, trophy, -1);
+					setupTrophy(context.getSource().getLevel(), pos, trophy, null);
 				}
 			}
 		}
@@ -172,11 +175,11 @@ public class TrophiesCommands {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static void setupTrophy(Level level, BlockPos pos, Trophy trophy, int variant) {
+	private static void setupTrophy(Level level, BlockPos pos, Trophy trophy, @Nullable CompoundTag variant) {
 		level.setBlockAndUpdate(pos, TrophyRegistries.TROPHY.get().defaultBlockState().setValue(TrophyBlock.FACING, Direction.WEST));
 		if (level.getBlockEntity(pos) instanceof TrophyBlockEntity trophyBE) {
 			trophyBE.setTrophy(trophy);
-			if (variant != -1) {
+			if (variant != null) {
 				trophyBE.setVariant(variant);
 			}
 		}

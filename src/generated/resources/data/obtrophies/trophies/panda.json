@@ -4,9 +4,13 @@
     "type": "obtrophies:item",
     "cooldown": 20000,
     "item": {
-      "Count": 1,
+      "count": 1,
       "id": "minecraft:bamboo"
     }
+  },
+  "default_variant": {
+    "HiddenGene": "normal",
+    "MainGene": "normal"
   },
   "scale": 0.75,
   "variants": [

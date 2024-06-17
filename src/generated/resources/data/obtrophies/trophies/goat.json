@@ -5,12 +5,12 @@
     "execute_behavior": {
       "type": "obtrophies:item",
       "item": {
-        "Count": 1,
+        "count": 1,
         "id": "minecraft:milk_bucket"
       }
     },
     "item_to_use": {
-      "Count": 1,
+      "count": 1,
       "id": "minecraft:bucket"
     },
     "shrink_item_stack": true,

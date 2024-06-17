@@ -50,7 +50,7 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 	}
 
 
-	public static void renderEntity(@Nullable TrophyBlockEntity be, int variant, String name, Level level, BlockPos pos, Trophy trophy, PoseStack stack, MultiBufferSource source, int light, boolean cycling, PlayerTrophyModel normalTrophy, PlayerTrophyModel slimTrophy) {
+	public static void renderEntity(@Nullable TrophyBlockEntity be, @Nullable CompoundTag variant, String name, Level level, BlockPos pos, Trophy trophy, PoseStack stack, MultiBufferSource source, int light, boolean cycling, PlayerTrophyModel normalTrophy, PlayerTrophyModel slimTrophy) {
 		stack.pushPose();
 		if (KEYS.isEmpty() && !Trophy.getTrophies().isEmpty()) {
 			KEYS.addAll(Trophy.getTrophies().keySet().stream().filter(location -> !location.equals(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.PLAYER))).toList());
@@ -69,9 +69,9 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 			stack.scale(0.7F, -0.7F, -0.7F);
 			PlayerInfoHolder holder = PlayerInfoHolder.getSkinFromName(name.toLowerCase(Locale.ROOT));
 			if (holder.slim()) {
-				slimTrophy.renderToBuffer(stack, source.getBuffer(holder.type()), light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				slimTrophy.renderToBuffer(stack, source.getBuffer(holder.type()), light, OverlayTexture.NO_OVERLAY);
 			} else {
-				normalTrophy.renderToBuffer(stack, source.getBuffer(holder.type()), light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				normalTrophy.renderToBuffer(stack, source.getBuffer(holder.type()), light, OverlayTexture.NO_OVERLAY);
 			}
 			if (holder.cape() != null) {
 				stack.pushPose();
@@ -96,8 +96,7 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 				//level.getGameTime doesn't increment when the game is paused
 				trophy = Trophy.getTrophies().get(KEYS.get((int) (Blaze3D.getTime() % KEYS.size())));
 			}
-			List<CompoundTag> variants = trophy.getVariants(level.registryAccess());
-			Entity entity = EntityCache.fetchEntity(trophy.type(), level, variant < variants.size() ? variants.get(variant) : null, trophy.defaultData());
+			Entity entity = EntityCache.fetchEntity(trophy.type(), level, variant, trophy.defaultData());
 			if (entity != null) {
 				EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
 				boolean hitboxes = dispatcher.shouldRenderHitBoxes();

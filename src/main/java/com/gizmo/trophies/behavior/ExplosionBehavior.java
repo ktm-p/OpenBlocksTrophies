@@ -2,6 +2,7 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 public record ExplosionBehavior(float power, boolean destructive) implements CustomBehavior {
 
-	public static final Codec<ExplosionBehavior> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<ExplosionBehavior> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.FLOAT.fieldOf("power").forGetter(ExplosionBehavior::power),
 			Codec.BOOL.fieldOf("destructive").forGetter(ExplosionBehavior::destructive)
 	).apply(instance, ExplosionBehavior::new));

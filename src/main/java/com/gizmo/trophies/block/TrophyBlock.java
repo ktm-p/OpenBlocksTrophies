@@ -8,8 +8,7 @@ import com.gizmo.trophies.trophy.Trophy;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -17,10 +16,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -48,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings({"deprecation", "unchecked"})
+@SuppressWarnings("unchecked")
 public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlock {
 	public static final MapCodec<TrophyBlock> CODEC = simpleCodec(TrophyBlock::new);
 
@@ -100,15 +99,18 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 			Trophy trophy = TrophyItem.getTrophy(stack);
 			if (trophy != null) {
 				trophyBE.setTrophy(trophy);
-				trophyBE.setTrophyName(stack.hasCustomHoverName() ? stack.getHoverName().getString() : "");
-				CompoundTag tag = BlockItem.getBlockEntityData(stack);
-				if (tag != null) {
-					if (tag.contains(TrophyItem.COOLDOWN_TAG)) {
-						trophyBE.setCooldown(tag.getInt(TrophyItem.COOLDOWN_TAG));
+				trophyBE.setTrophyName(stack.has(DataComponents.CUSTOM_NAME) ? stack.getHoverName().getString() : "");
+				TrophyInfo info = stack.get(TrophyRegistries.TROPHY_INFO);
+				if (info != null) {
+					if (info.variant().isPresent()) {
+						trophyBE.setVariant(info.variant().get());
+					}
+					if (info.cooldown().isPresent()) {
+						trophyBE.setCooldown(info.cooldown().get());
 					}
 
-					if (tag.contains(TrophyItem.CYCLING_TAG)) {
-						trophyBE.setCycling(tag.getBoolean(TrophyItem.CYCLING_TAG));
+					if (info.cooldown().isPresent()) {
+						trophyBE.setCycling(true);
 					}
 				}
 			}
@@ -116,12 +118,7 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (player.isShiftKeyDown()) {
-			level.setBlockAndUpdate(pos, state.cycle(PEDESTAL));
-			level.playSound(null, pos, SoundEvents.CANDLE_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-			return InteractionResult.sidedSuccess(level.isClientSide());
-		}
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TrophyBlockEntity trophyBE) {
 			Trophy trophy = trophyBE.getTrophy();
 			if (trophy != null) {
@@ -133,11 +130,22 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 						level.playSound(null, pos, soundData.getFirst(), SoundSource.BLOCKS, 1.0F, soundData.getSecond());
 					}
 					if (trophyBE.getCooldown() <= 0 && trophy.clickBehavior().isPresent() && !TrophyConfig.rightClickEffectOverride) {
-						trophyBE.setCooldown(trophy.clickBehavior().get().execute(trophyBE, (ServerPlayer) player, player.getItemInHand(hand)));
+						trophyBE.setCooldown(trophy.clickBehavior().get().execute(trophyBE, (ServerPlayer) player, stack));
 					}
 				}
 			}
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, result);
+	}
+
+	@Override
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
+		if (player.isShiftKeyDown()) {
+			level.setBlockAndUpdate(pos, state.cycle(PEDESTAL));
+			level.playSound(null, pos, SoundEvents.CANDLE_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+			return InteractionResult.sidedSuccess(level.isClientSide());
+		}
+
 		return InteractionResult.sidedSuccess(level.isClientSide());
 	}
 
@@ -145,18 +153,10 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		List<ItemStack> drop = new ArrayList<>();
 		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-		if (blockEntity instanceof TrophyBlockEntity trophyBE && trophyBE.getTrophy() != null) {
+		if (blockEntity instanceof TrophyBlockEntity trophyBE) {
 			ItemStack newStack = new ItemStack(this);
-			CompoundTag tag = new CompoundTag();
-			tag.putString(TrophyItem.ENTITY_TAG, Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophyBE.getTrophy().type())).toString());
-			tag.putInt(TrophyItem.VARIANT_TAG, trophyBE.getVariant());
-			if (trophyBE.getCooldown() > 0) {
-				tag.putInt(TrophyItem.COOLDOWN_TAG, trophyBE.getCooldown());
-			}
-			if (trophyBE.isCycling()) {
-				tag.putBoolean(TrophyItem.CYCLING_TAG, true);
-			}
-			newStack.addTagElement("BlockEntityTag", tag);
+			newStack.set(TrophyRegistries.TROPHY_INFO, TrophyInfo.makeFromBlock(trophyBE));
+			newStack.set(DataComponents.RARITY, TrophyItem.getTrophyRarity(newStack));
 			drop.add(newStack);
 		}
 		return drop;
@@ -165,16 +165,12 @@ public class TrophyBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader reader, BlockPos pos, Player player) {
 		ItemStack newStack = new ItemStack(this);
-		CompoundTag tag = new CompoundTag();
-		if (reader.getBlockEntity(pos) instanceof TrophyBlockEntity trophyBE && trophyBE.getTrophy() != null) {
-			tag.putString("entity", Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophyBE.getTrophy().type())).toString());
-			if (trophyBE.isCycling()) {
-				tag.putBoolean(TrophyItem.CYCLING_TAG, true);
-			}
-			newStack.addTagElement("BlockEntityTag", tag);
+		if (reader.getBlockEntity(pos) instanceof TrophyBlockEntity trophyBE) {
+			newStack.set(TrophyRegistries.TROPHY_INFO, TrophyInfo.makeFromBlock(trophyBE));
 			if (!trophyBE.getTrophyName().isEmpty()) {
-				newStack.setHoverName(Component.literal(trophyBE.getTrophyName()));
+				newStack.set(DataComponents.ITEM_NAME, Component.literal(trophyBE.getTrophyName()));
 			}
+			newStack.set(DataComponents.RARITY, TrophyItem.getTrophyRarity(newStack));
 		}
 		return newStack;
 	}

@@ -15,7 +15,7 @@ public class CustomTrophyBehaviors {
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> PLACE_BLOCK = CUSTOM_BEHAVIORS.register("place_block", () -> new CustomBehaviorType(PlaceBlockBehavior.CODEC));
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> SET_FIRE = CUSTOM_BEHAVIORS.register("set_fire", () -> new CustomBehaviorType(PlayerSetFireBehavior.CODEC));
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> LOOT_TABLE = CUSTOM_BEHAVIORS.register("loot_table", () -> new CustomBehaviorType(PullFromLootTableBehavior.CODEC));
-	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> ARROW = CUSTOM_BEHAVIORS.register("arrow", () -> new CustomBehaviorType(ShootArrowBehavior.CODEC));
+	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> PROJECTILE = CUSTOM_BEHAVIORS.register("shoot_projectile", () -> new CustomBehaviorType(ShootProjectileBehavior.CODEC));
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> ENDER_PEARL = CUSTOM_BEHAVIORS.register("ender_pearl", () -> new CustomBehaviorType(ShootEnderPearlBehavior.CODEC));
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> LLAMA_SPIT = CUSTOM_BEHAVIORS.register("llama_spit", () -> new CustomBehaviorType(ShootLlamaSpitBehavior.CODEC));
 	public static final DeferredHolder<CustomBehaviorType, CustomBehaviorType> TOTEM_OF_UNDYING = CUSTOM_BEHAVIORS.register("totem_of_undying", () -> new CustomBehaviorType(TotemOfUndyingEffectBehavior.CODEC));

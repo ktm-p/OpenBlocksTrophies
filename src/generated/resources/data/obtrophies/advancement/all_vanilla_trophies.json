@@ -5,10 +5,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:allay\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:allay"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -18,10 +20,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:axolotl\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:axolotl"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -31,10 +35,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:bat\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:bat"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -44,10 +50,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:bee\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:bee"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -57,10 +65,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:blaze\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:blaze"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -70,10 +80,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:camel\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:camel"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -83,10 +95,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:cat\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:cat"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -96,10 +110,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:cave_spider\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:cave_spider"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -109,10 +125,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:chicken\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:chicken"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -122,10 +140,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:cod\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:cod"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -135,10 +155,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:cow\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:cow"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -148,10 +170,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:creeper\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:creeper"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -161,10 +185,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:dolphin\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:dolphin"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -174,10 +200,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:donkey\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:donkey"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -187,10 +215,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:drowned\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:drowned"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -200,10 +230,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:elder_guardian\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:elder_guardian"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -213,10 +245,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ender_dragon\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ender_dragon"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -226,10 +260,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:enderman\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:enderman"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -239,10 +275,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:endermite\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:endermite"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -252,10 +290,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:evoker\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:evoker"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -265,10 +305,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:fox\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:fox"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -278,10 +320,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:frog\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:frog"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -291,10 +335,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ghast\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ghast"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -304,10 +350,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:glow_squid\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:glow_squid"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -317,10 +365,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:goat\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:goat"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -330,10 +380,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:guardian\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:guardian"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -343,10 +395,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:hoglin\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:hoglin"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -356,10 +410,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:horse\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -369,10 +425,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:husk\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:husk"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -382,10 +440,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:iron_golem\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:iron_golem"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -395,10 +455,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:llama\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:llama"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -408,10 +470,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:magma_cube\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:magma_cube"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -421,10 +485,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:mooshroom\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:mooshroom"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -434,10 +500,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:mule\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:mule"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -447,10 +515,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ocelot\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ocelot"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -460,10 +530,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:panda\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:panda"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -473,10 +545,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:parrot\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:parrot"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -486,10 +560,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:phantom\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:phantom"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -499,10 +575,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:pig\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:pig"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -512,10 +590,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:piglin_brute\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:piglin_brute"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -525,10 +605,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:piglin\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:piglin"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -538,10 +620,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:pillager\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:pillager"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -551,10 +635,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:polar_bear\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:polar_bear"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -564,10 +650,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:pufferfish\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:pufferfish"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -577,10 +665,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:rabbit\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:rabbit"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -590,10 +680,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ravager\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ravager"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -603,10 +695,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:salmon\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:salmon"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -616,10 +710,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:sheep\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:sheep"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -629,10 +725,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:shulker\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:shulker"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -642,10 +740,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:silverfish\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:silverfish"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -655,10 +755,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:skeleton_horse\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:skeleton_horse"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -668,10 +770,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:skeleton\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:skeleton"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -681,10 +785,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:slime\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:slime"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -694,10 +800,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:sniffer\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:sniffer"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -707,10 +815,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:snow_golem\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:snow_golem"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -720,10 +830,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:spider\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:spider"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -733,10 +845,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:squid\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:squid"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -746,10 +860,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:stray\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:stray"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -759,10 +875,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:strider\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:strider"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -772,10 +890,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:tadpole\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tadpole"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -785,10 +905,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:trader_llama\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:trader_llama"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -798,10 +920,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:tropical_fish\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -811,10 +935,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:turtle\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:turtle"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -824,10 +950,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:vex\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:vex"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -837,10 +965,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:villager\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:villager"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -850,10 +980,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:vindicator\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:vindicator"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -863,10 +995,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:wandering_trader\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wandering_trader"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -876,10 +1010,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:warden\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:warden"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -889,10 +1025,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:witch\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:witch"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -902,10 +1040,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:wither_skeleton\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wither_skeleton"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -915,10 +1055,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:wither\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wither"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -928,10 +1070,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:wolf\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wolf"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -941,10 +1085,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:zoglin\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:zoglin"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -954,10 +1100,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:zombie\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:zombie"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -967,10 +1115,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:zombie_villager\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:zombie_villager"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -980,10 +1130,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:zombified_piglin\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:zombified_piglin"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -996,8 +1148,13 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "obtrophies:trophy",
-      "nbt": "{BlockEntityTag:{VariantID:0,entity:\"minecraft:fox\"}}"
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:fox"
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
     },
     "title": {
       "translate": "advancement.obtrophies.all_vanilla.title"

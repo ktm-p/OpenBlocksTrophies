@@ -1,0 +1,491 @@
+{
+  "parent": "obtrophies:one_trophy",
+  "criteria": {
+    "has_fish_trophy_1": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 65536
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_10": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 67110144
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_11": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 67371009
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_12": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 67699456
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_13": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 67764993
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_14": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 101253888
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_15": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 117441025
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_16": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 117441793
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_17": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 117506305
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_18": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 117899265
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_19": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 118161664
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_2": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 459008
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_20": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 185008129
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_21": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 234882305
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_22": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 235340288
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_3": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 917504
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_4": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 918273
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_5": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 918529
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_6": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 16778497
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_7": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 50660352
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_8": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 50726144
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fish_trophy_9": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:tropical_fish",
+                "variant": {
+                  "Variant": 67108865
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.obtrophies.all_fish_trophies.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:tropical_fish",
+          "variant": {
+            "Variant": 65536
+          }
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
+    },
+    "title": {
+      "translate": "advancement.obtrophies.all_fish_trophies.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_fish_trophy_1"
+    ],
+    [
+      "has_fish_trophy_2"
+    ],
+    [
+      "has_fish_trophy_3"
+    ],
+    [
+      "has_fish_trophy_4"
+    ],
+    [
+      "has_fish_trophy_5"
+    ],
+    [
+      "has_fish_trophy_6"
+    ],
+    [
+      "has_fish_trophy_7"
+    ],
+    [
+      "has_fish_trophy_8"
+    ],
+    [
+      "has_fish_trophy_9"
+    ],
+    [
+      "has_fish_trophy_10"
+    ],
+    [
+      "has_fish_trophy_11"
+    ],
+    [
+      "has_fish_trophy_12"
+    ],
+    [
+      "has_fish_trophy_13"
+    ],
+    [
+      "has_fish_trophy_14"
+    ],
+    [
+      "has_fish_trophy_15"
+    ],
+    [
+      "has_fish_trophy_16"
+    ],
+    [
+      "has_fish_trophy_17"
+    ],
+    [
+      "has_fish_trophy_18"
+    ],
+    [
+      "has_fish_trophy_19"
+    ],
+    [
+      "has_fish_trophy_20"
+    ],
+    [
+      "has_fish_trophy_21"
+    ],
+    [
+      "has_fish_trophy_22"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

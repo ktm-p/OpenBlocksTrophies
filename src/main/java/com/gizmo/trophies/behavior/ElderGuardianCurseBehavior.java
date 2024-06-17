@@ -2,13 +2,14 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public record ElderGuardianCurseBehavior() implements CustomBehavior {
 
-	public static final Codec<ElderGuardianCurseBehavior> CODEC = Codec.unit(ElderGuardianCurseBehavior::new);
+	public static final MapCodec<ElderGuardianCurseBehavior> CODEC = MapCodec.unit(ElderGuardianCurseBehavior::new);
 
 	@Override
 	public CustomBehaviorType getType() {

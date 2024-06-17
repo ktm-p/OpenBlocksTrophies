@@ -4,9 +4,12 @@
     "type": "obtrophies:item",
     "cooldown": 20000,
     "item": {
-      "Count": 1,
+      "count": 1,
       "id": "minecraft:wheat"
     }
+  },
+  "default_variant": {
+    "Variant": 0
   },
   "scale": 0.9,
   "variants": [

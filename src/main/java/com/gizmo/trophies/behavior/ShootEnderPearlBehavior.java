@@ -2,6 +2,7 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public record ShootEnderPearlBehavior() implements CustomBehavior {
 
-	public static final Codec<ShootEnderPearlBehavior> CODEC = Codec.unit(ShootEnderPearlBehavior::new);
+	public static final MapCodec<ShootEnderPearlBehavior> CODEC = MapCodec.unit(ShootEnderPearlBehavior::new);
 
 	@Override
 	public CustomBehaviorType getType() {

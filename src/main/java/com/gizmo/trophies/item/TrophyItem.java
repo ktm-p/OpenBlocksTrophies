@@ -1,22 +1,23 @@
 package com.gizmo.trophies.item;
 
+import com.gizmo.trophies.block.TrophyInfo;
 import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.client.TrophyItemRenderer;
 import com.gizmo.trophies.trophy.Trophy;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -33,24 +34,17 @@ import java.util.function.Consumer;
 
 public class TrophyItem extends BlockItem {
 
-	public static final String ENTITY_TAG = "entity";
-	public static final String COOLDOWN_TAG = "cooldown";
-	public static final String CYCLING_TAG = "SpecialCycleVariant";
-	public static final String VARIANT_TAG = "VariantID";
-
 	public TrophyItem(Block block, Properties properties) {
 		super(block, properties);
 	}
 
 	@Nullable
 	public static Trophy getTrophy(@Nonnull ItemStack stack) {
-		if (stack.hasTag()) {
-			CompoundTag tag = BlockItem.getBlockEntityData(stack);
-			if (tag != null && tag.contains(ENTITY_TAG)) {
-				String entityKey = tag.getString(ENTITY_TAG);
-				if (Trophy.getTrophies().containsKey(ResourceLocation.tryParse(entityKey))) {
-					return Trophy.getTrophies().get(ResourceLocation.tryParse(entityKey));
-				}
+		TrophyInfo info = stack.get(TrophyRegistries.TROPHY_INFO);
+		if (info != null) {
+			ResourceLocation entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(info.type());
+			if (Trophy.getTrophies().containsKey(entityKey)) {
+				return Trophy.getTrophies().get(entityKey);
 			}
 		}
 
@@ -58,49 +52,46 @@ public class TrophyItem extends BlockItem {
 	}
 
 	public static boolean hasCycleOnTrophy(@Nonnull ItemStack stack) {
-		if (stack.hasTag()) {
-			CompoundTag tag = BlockItem.getBlockEntityData(stack);
-			if (tag != null && tag.contains(TrophyItem.CYCLING_TAG)) {
-				return tag.getBoolean(TrophyItem.CYCLING_TAG);
-			}
+		TrophyInfo info = stack.get(TrophyRegistries.TROPHY_INFO);
+		if (info != null) {
+			return info.cycling().isPresent();
 		}
 
 		return false;
 	}
 
-	public static ItemStack loadEntityToTrophy(EntityType<?> type, int variant, boolean cycling) {
+	public static ItemStack loadEntityToTrophy(EntityType<?> type) {
 		ItemStack stack = new ItemStack(TrophyRegistries.TROPHY_ITEM.get());
-		stack.setTag(createTrophyTag(type, variant, cycling));
+		stack.set(TrophyRegistries.TROPHY_INFO, new TrophyInfo(type));
+		stack.set(DataComponents.RARITY, getTrophyRarity(stack));
 		return stack;
 	}
 
-	public static CompoundTag createTrophyTag(EntityType<?> type, int variant, boolean cycling) {
-		CompoundTag tag = new CompoundTag();
-		CompoundTag beTag = new CompoundTag();
-		beTag.putString(ENTITY_TAG, Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(type)).toString());
-		if (variant > -1) {
-			beTag.putInt(VARIANT_TAG, variant);
-		}
-		if (cycling) {
-			beTag.putBoolean(TrophyItem.CYCLING_TAG, true);
-		}
-		tag.put("BlockEntityTag", beTag);
-		return tag;
+	public static ItemStack loadVariantToTrophy(EntityType<?> type, @Nullable CompoundTag variant) {
+		ItemStack stack = new ItemStack(TrophyRegistries.TROPHY_ITEM.get());
+		stack.set(TrophyRegistries.TROPHY_INFO, new TrophyInfo(type, variant));
+		stack.set(DataComponents.RARITY, getTrophyRarity(stack));
+		return stack;
 	}
 
-	public static int getTrophyVariant(@Nonnull ItemStack stack) {
-		if (stack.hasTag()) {
-			CompoundTag tag = BlockItem.getBlockEntityData(stack);
-			if (tag != null && tag.contains(TrophyItem.VARIANT_TAG)) {
-				return tag.getInt(TrophyItem.VARIANT_TAG);
-			}
-		}
-
-		return 0;
+	public static ItemStack createCyclingTrophy(EntityType<?> type) {
+		ItemStack stack = new ItemStack(TrophyRegistries.TROPHY_ITEM.get());
+		stack.set(TrophyRegistries.TROPHY_INFO, new TrophyInfo(type, !Trophy.getTrophies().isEmpty()));
+		stack.set(DataComponents.RARITY, getTrophyRarity(stack));
+		return stack;
 	}
 
-	@Override
-	public Rarity getRarity(ItemStack stack) {
+	@Nullable
+	public static CompoundTag getTrophyVariant(@Nonnull ItemStack stack) {
+		TrophyInfo info = stack.get(TrophyRegistries.TROPHY_INFO);
+		if (info != null && info.variant().isPresent()) {
+			return info.variant().get();
+		}
+
+		return null;
+	}
+
+	public static Rarity getTrophyRarity(ItemStack stack) {
 		Trophy trophy = getTrophy(stack);
 		if (trophy != null) {
 			if (trophy.type() == EntityType.PLAYER) {
@@ -124,15 +115,15 @@ public class TrophyItem extends BlockItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		Trophy trophy = getTrophy(stack);
 		if (trophy != null && !hasCycleOnTrophy(stack)) {
 			tooltip.add(Component.translatable("item.obtrophies.trophy.modid", this.getModIdForTooltip(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophy.type())).getNamespace())).withStyle(ChatFormatting.GRAY));
 			if (flag.isAdvanced()) {
-				int variant = getTrophyVariant(stack);
-				if (level != null && !trophy.getVariants(level.registryAccess()).isEmpty() && variant < trophy.getVariants(level.registryAccess()).size()) {
-					CompoundTag tag = trophy.getVariants(level.registryAccess()).get(variant);
-					tag.getAllKeys().forEach(s -> tooltip.add(Component.translatable("item.obtrophies.trophy.variant", s, Objects.requireNonNull(tag.get(s)).getAsString()).withStyle(ChatFormatting.GRAY)));
+				CompoundTag variant = getTrophyVariant(stack);
+				HolderLookup.Provider provider = context.registries();
+				if (provider != null && !trophy.getVariants(provider).isEmpty() && variant != null) {
+					variant.getAllKeys().forEach(s -> tooltip.add(Component.translatable("item.obtrophies.trophy.variant", s, Objects.requireNonNull(variant.get(s)).getAsString()).withStyle(ChatFormatting.GRAY)));
 				}
 			}
 		}
@@ -143,11 +134,6 @@ public class TrophyItem extends BlockItem {
 				.map(ModContainer::getModInfo)
 				.map(IModInfo::getDisplayName)
 				.orElseGet(() -> StringUtils.capitalize(modId));
-	}
-
-	@Override
-	public boolean canEquip(ItemStack stack, EquipmentSlot slot, Entity entity) {
-		return slot == EquipmentSlot.HEAD;
 	}
 
 	@Override

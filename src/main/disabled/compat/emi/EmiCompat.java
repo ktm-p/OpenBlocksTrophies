@@ -16,7 +16,7 @@ import java.util.Map;
 
 @EmiEntrypoint
 public class EmiCompat implements EmiPlugin {
-	public static final EmiRecipeCategory TROPHY = new EmiRecipeCategory(new ResourceLocation(OpenBlocksTrophies.MODID, "trophy"), EmiStack.of(TrophyItem.loadEntityToTrophy(EntityType.CHICKEN, 0, !Trophy.getTrophies().isEmpty())));
+	public static final EmiRecipeCategory TROPHY = new EmiRecipeCategory(OpenBlocksTrophies.prefix("trophy"), EmiStack.of(TrophyItem.loadEntityToTrophy(EntityType.CHICKEN, 0, !Trophy.getTrophies().isEmpty())));
 
 	@Override
 	public void register(EmiRegistry registry) {

@@ -32,7 +32,7 @@ public class TrophyConfig {
 
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if (server != null && server.isDedicatedServer()) {
-			PacketDistributor.ALL.noArg().send(new SyncCommonConfigPacket(fakePlayersDropTrophies, anySourceDropsTrophies));
+			PacketDistributor.sendToAllPlayers(new SyncCommonConfigPacket(fakePlayersDropTrophies, anySourceDropsTrophies));
 		}
 	}
 }

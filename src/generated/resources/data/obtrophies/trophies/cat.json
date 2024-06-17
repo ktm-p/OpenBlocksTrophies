@@ -5,6 +5,9 @@
     "cooldown": 20000,
     "loot_table": "minecraft:gameplay/cat_morning_gift"
   },
+  "default_variant": {
+    "variant": "minecraft:red"
+  },
   "scale": 1.25,
   "variants": {
     "key": "variant",

@@ -1,5 +1,8 @@
 {
   "entity": "minecraft:parrot",
+  "default_variant": {
+    "Variant": 0
+  },
   "scale": 1.75,
   "variants": [
     {

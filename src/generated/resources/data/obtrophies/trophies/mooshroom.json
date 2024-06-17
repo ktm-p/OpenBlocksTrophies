@@ -7,6 +7,9 @@
     },
     "method": "around"
   },
+  "default_variant": {
+    "Type": "red"
+  },
   "variants": [
     {
       "Type": "red"

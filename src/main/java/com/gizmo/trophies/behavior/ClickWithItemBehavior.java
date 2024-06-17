@@ -3,6 +3,7 @@ package com.gizmo.trophies.behavior;
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 public record ClickWithItemBehavior(Either<ItemStack, TagKey<Item>> ingredient, boolean consumeStack, Optional<CustomBehavior> behavior, int cooldown, Optional<SoundEvent> sound) implements CustomBehavior {
 
-	public static final Codec<ClickWithItemBehavior> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<ClickWithItemBehavior> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.either(ItemStack.CODEC, TagKey.codec(Registries.ITEM)).fieldOf("item_to_use").forGetter(ClickWithItemBehavior::ingredient),
 			Codec.BOOL.fieldOf("shrink_item_stack").forGetter(ClickWithItemBehavior::consumeStack),
 			CustomBehaviorType.DISPATCH_CODEC.optionalFieldOf("execute_behavior").forGetter(ClickWithItemBehavior::behavior),

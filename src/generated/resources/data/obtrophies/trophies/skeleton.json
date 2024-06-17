@@ -1,6 +1,11 @@
 {
   "entity": "minecraft:skeleton",
   "behavior": {
-    "type": "obtrophies:arrow"
+    "type": "obtrophies:shoot_projectile",
+    "projectile_item": {
+      "id": "minecraft:arrow"
+    },
+    "shoot_sound": "minecraft:entity.arrow.shoot",
+    "shoot_upwards": true
   }
 }

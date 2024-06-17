@@ -75,7 +75,7 @@ public abstract class TrophyProvider implements DataProvider {
 	 * @param trophy the trophy you want to make. A trophy takes the entity type at the very minimum. You can also specify the scale, vertical offset, drop chance, custom right click behavior, and NBT variants the trophy may have.
 	 */
 	protected void makeTrophy(Trophy.Builder trophy) {
-		this.builder.putIfAbsent(new ResourceLocation(this.modid, Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophy.build().type())).getPath()), trophy);
+		this.builder.putIfAbsent(ResourceLocation.fromNamespaceAndPath(this.modid, Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophy.build().type())).getPath()), trophy);
 	}
 
 	@Override

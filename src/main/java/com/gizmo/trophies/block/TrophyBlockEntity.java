@@ -3,6 +3,7 @@ package com.gizmo.trophies.block;
 import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.trophy.Trophy;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -20,7 +21,8 @@ import java.util.Objects;
 public class TrophyBlockEntity extends BlockEntity {
 
 	private int cooldown = 0;
-	private int variant = 0;
+	@Nullable
+	private CompoundTag variant = null;
 	private Trophy trophy;
 	private String trophyName = "";
 	private boolean specialCycleVariant = false;
@@ -51,11 +53,12 @@ public class TrophyBlockEntity extends BlockEntity {
 		this.markUpdated();
 	}
 
-	public int getVariant() {
+	@Nullable
+	public CompoundTag getVariant() {
 		return this.variant;
 	}
 
-	public void setVariant(int variant) {
+	public void setVariant(@Nullable CompoundTag variant) {
 		this.variant = variant;
 	}
 
@@ -68,8 +71,8 @@ public class TrophyBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
 		if (this.getTrophy() != null) {
 			tag.putString("entity", Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(this.getTrophy().type())).toString());
 		}
@@ -77,7 +80,9 @@ public class TrophyBlockEntity extends BlockEntity {
 		if (this.specialCycleVariant) {
 			tag.putBoolean("SpecialCycleVariant", true);
 		}
-		tag.putInt("VariantID", this.getVariant());
+		if (this.getVariant() != null) {
+			tag.put("VariantID", this.getVariant());
+		}
 		if (!this.getTrophyName().isEmpty()) {
 			tag.putString("CustomNameEntity", this.getTrophyName());
 		}
@@ -92,8 +97,8 @@ public class TrophyBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
 		if (Trophy.getTrophies().containsKey(ResourceLocation.tryParse(tag.getString("entity")))) {
 			this.setTrophy(Trophy.getTrophies().get(ResourceLocation.tryParse(tag.getString("entity"))));
 		}
@@ -101,32 +106,34 @@ public class TrophyBlockEntity extends BlockEntity {
 		if (tag.contains("SpecialCycleVariant")) {
 			this.specialCycleVariant = tag.getBoolean("SpecialCycleVariant");
 		}
-		this.variant = tag.getInt("VariantID");
+		if (tag.contains("Variant")) {
+			this.variant = tag.getCompound("VariantID");
+		}
 		if (tag.contains("CustomNameEntity")) {
 			this.setTrophyName(tag.getString("CustomNameEntity"));
 		}
 	}
 
 	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.handleUpdateTag(Objects.requireNonNull(pkt.getTag()));
+	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider provider) {
+		this.handleUpdateTag(Objects.requireNonNull(packet.getTag()), provider);
 	}
 
 	@Override
-	public void handleUpdateTag(CompoundTag tag) {
-		super.handleUpdateTag(tag);
+	public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
+		super.handleUpdateTag(tag, provider);
 		this.updateClient();
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		return this.saveWithId();
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithId(provider);
 	}
 
 	@Nullable
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this, tile -> this.getUpdateTag());
+		return ClientboundBlockEntityDataPacket.create(this, (packet, access) -> this.getUpdateTag(access));
 	}
 
 	private void markUpdated() {

@@ -31,13 +31,14 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @Mod(OpenBlocksTrophies.MODID)
@@ -46,7 +47,7 @@ public class OpenBlocksTrophies {
 
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-	public static final ResourceKey<Registry<CustomBehaviorType>> CUSTOM_BEHAVIORS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "custom_behavior"));
+	public static final ResourceKey<Registry<CustomBehaviorType>> CUSTOM_BEHAVIORS_KEY = ResourceKey.createRegistryKey(prefix("custom_behavior"));
 	public static final Registry<CustomBehaviorType> CUSTOM_BEHAVIORS = new RegistryBuilder<>(CUSTOM_BEHAVIORS_KEY).sync(true).create();
 
 	public OpenBlocksTrophies(IEventBus bus, Dist dist) {
@@ -73,6 +74,7 @@ public class OpenBlocksTrophies {
 
 		TrophyRegistries.BLOCKS.register(bus);
 		TrophyRegistries.BLOCK_ENTITIES.register(bus);
+		TrophyRegistries.COMPONENTS.register(bus);
 		TrophyRegistries.ITEMS.register(bus);
 		TrophyRegistries.LOOT_MODIFIERS.register(bus);
 		TrophyRegistries.SOUNDS.register(bus);
@@ -82,7 +84,7 @@ public class OpenBlocksTrophies {
 	}
 
 	public void gatherData(GatherDataEvent event) {
-		event.getGenerator().addProvider(event.includeServer(), new LootModifierGenerator(event.getGenerator().getPackOutput()));
+		event.getGenerator().addProvider(event.includeServer(), new LootModifierGenerator(event.getGenerator().getPackOutput(), event.getLookupProvider()));
 		event.getGenerator().addProvider(event.includeServer(), new TrophyGenerator(event.getGenerator().getPackOutput()));
 		event.getGenerator().addProvider(event.includeServer(), new TrophyAdvancementProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
 		event.getGenerator().addProvider(true, new PackMetadataGenerator(event.getGenerator().getPackOutput()).add(PackMetadataSection.TYPE, new PackMetadataSection(
@@ -91,13 +93,17 @@ public class OpenBlocksTrophies {
 				Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
 	}
 
-	public void registerPacket(RegisterPayloadHandlerEvent event) {
-		IPayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.1");
-		registrar.play(SyncCommonConfigPacket.ID, SyncCommonConfigPacket::new, payload -> payload.client(SyncCommonConfigPacket::handle));
-		registrar.play(SyncTrophyConfigsPacket.ID, SyncTrophyConfigsPacket::new, payload -> payload.client(SyncTrophyConfigsPacket::handle));
+	public void registerPacket(RegisterPayloadHandlersEvent event) {
+		PayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.1");
+		registrar.playToClient(SyncCommonConfigPacket.TYPE, SyncCommonConfigPacket.STREAM_CODEC, SyncCommonConfigPacket::handle);
+		registrar.playToClient(SyncTrophyConfigsPacket.TYPE, SyncTrophyConfigsPacket.STREAM_CODEC, SyncTrophyConfigsPacket::handle);
 	}
 
 	public static double getTrophyDropChance(Trophy trophy) {
 		return TrophyConfig.dropChanceOverride >= 0.0D ? TrophyConfig.dropChanceOverride : trophy.dropChance();
+	}
+
+	public static ResourceLocation prefix(String name) {
+		return ResourceLocation.fromNamespaceAndPath(MODID, name.toLowerCase(Locale.ROOT));
 	}
 }

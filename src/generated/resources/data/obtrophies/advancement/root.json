@@ -4,9 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ]
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -20,8 +18,13 @@
       "translate": "advancement.obtrophies.root.desc"
     },
     "icon": {
-      "item": "obtrophies:trophy",
-      "nbt": "{BlockEntityTag:{VariantID:0,entity:\"minecraft:chicken\"}}"
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:chicken"
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
     },
     "show_toast": false,
     "title": {

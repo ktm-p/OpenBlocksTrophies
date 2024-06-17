@@ -4,9 +4,12 @@
     "type": "obtrophies:item",
     "cooldown": 20000,
     "item": {
-      "Count": 1,
+      "count": 1,
       "id": "minecraft:carrot"
     }
+  },
+  "default_variant": {
+    "RabbitType": 0
   },
   "scale": 2.0,
   "variants": [

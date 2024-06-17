@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.searchtree.SearchRegistry;
+import net.minecraft.client.multiplayer.SessionSearchTrees;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +15,6 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.CreativeModeTabSearchRegistry;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -89,7 +88,7 @@ public class CreativeModeVariantToggle {
 		screen.scrollOffs = 0.0F;
 	}
 
-	private static List<ItemStack> getTrophyList(RegistryAccess access, FeatureFlagSet set, @Nullable SearchRegistry.Key<ItemStack> searchTree, String queriedSearch) {
+	private static List<ItemStack> getTrophyList(RegistryAccess access, FeatureFlagSet set, @Nullable SessionSearchTrees.Key searchTree, String queriedSearch) {
 		List<ItemStack> trophies = new ArrayList<>();
 		if (!Trophy.getTrophies().isEmpty()) {
 			Map<ResourceLocation, Trophy> sortedTrophies = new TreeMap<>(Comparator.naturalOrder());
@@ -97,17 +96,15 @@ public class CreativeModeVariantToggle {
 			for (Map.Entry<ResourceLocation, Trophy> trophyEntry : sortedTrophies.entrySet()) {
 				if (trophyEntry.getValue().type().isEnabled(set)) {
 					if (!trophyEntry.getValue().getVariants(access).isEmpty() && showVariants.isSelected()) {
-						for (int i = 0; i < trophyEntry.getValue().getVariants(access).size(); i++) {
-							trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), i, false));
-						}
+						trophyEntry.getValue().getVariants(access).forEach(tag -> trophies.add(TrophyItem.loadVariantToTrophy(trophyEntry.getValue().type(), tag)));
 					} else {
-						trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), 0, false));
+						trophies.add(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type()));
 					}
 				}
 			}
 		}
 
-		return searchTree != null && !queriedSearch.isEmpty() ? Minecraft.getInstance().getSearchTree(searchTree).search(queriedSearch) : trophies;
+		return searchTree != null && !queriedSearch.isEmpty() ? Minecraft.getInstance().getConnection().searchTrees().creativeNameSearch(searchTree).search(queriedSearch) : trophies;
 	}
 
 	private static CreativeModeTab.ItemDisplayParameters buildParams() {

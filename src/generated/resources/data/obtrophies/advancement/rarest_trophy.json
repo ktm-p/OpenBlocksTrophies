@@ -5,10 +5,15 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{VariantID:4,entity:\"minecraft:axolotl\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:axolotl",
+                "variant": {
+                  "Variant": 4
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -21,8 +26,16 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "obtrophies:trophy",
-      "nbt": "{BlockEntityTag:{VariantID:4,entity:\"minecraft:axolotl\"}}"
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:axolotl",
+          "variant": {
+            "Variant": 4
+          }
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
     },
     "title": {
       "translate": "advancement.obtrophies.rarest_trophy.title"

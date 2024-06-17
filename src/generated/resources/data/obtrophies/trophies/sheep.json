@@ -1,5 +1,8 @@
 {
   "entity": "minecraft:sheep",
+  "default_variant": {
+    "Color": 0
+  },
   "variants": [
     {
       "Color": 0

@@ -4,9 +4,12 @@
     "type": "obtrophies:item",
     "cooldown": 20000,
     "item": {
-      "Count": 1,
+      "count": 1,
       "id": "minecraft:slime_ball"
     }
+  },
+  "default_variant": {
+    "variant": "minecraft:temperate"
   },
   "scale": 1.5,
   "variants": {

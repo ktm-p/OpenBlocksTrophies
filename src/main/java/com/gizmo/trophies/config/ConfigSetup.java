@@ -21,12 +21,12 @@ public class ConfigSetup {
 	static {
 		{
 			final Pair<TrophyCommonConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(TrophyCommonConfig::new);
-			ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC = specPair.getRight());
+			ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC = specPair.getRight());
 			COMMON_CONFIG = specPair.getLeft();
 		}
 		{
 			final Pair<TrophyClientConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(TrophyClientConfig::new);
-			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC = specPair.getRight());
+			ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC = specPair.getRight());
 			CLIENT_CONFIG = specPair.getLeft();
 		}
 	}
@@ -50,7 +50,7 @@ public class ConfigSetup {
 	public static void syncConfigOnLogin(PlayerEvent.PlayerLoggedInEvent event) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if (server != null && server.isDedicatedServer() && event.getEntity() instanceof ServerPlayer player) {
-			PacketDistributor.PLAYER.with(player).send(new SyncCommonConfigPacket(TrophyConfig.fakePlayersDropTrophies, TrophyConfig.anySourceDropsTrophies));
+			PacketDistributor.sendToPlayer(player, new SyncCommonConfigPacket(TrophyConfig.fakePlayersDropTrophies, TrophyConfig.anySourceDropsTrophies));
 		}
 	}
 }

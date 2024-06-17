@@ -2,6 +2,7 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public record ShootLlamaSpitBehavior() implements CustomBehavior {
 
-	public static final Codec<ShootLlamaSpitBehavior> CODEC = Codec.unit(ShootLlamaSpitBehavior::new);
+	public static final MapCodec<ShootLlamaSpitBehavior> CODEC = MapCodec.unit(ShootLlamaSpitBehavior::new);
 
 	@Override
 	public CustomBehaviorType getType() {

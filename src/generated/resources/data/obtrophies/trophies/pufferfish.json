@@ -5,6 +5,9 @@
     "effect": "minecraft:nausea",
     "time": 100
   },
+  "default_variant": {
+    "PuffState": 2
+  },
   "scale": 2.0,
   "variants": [
     {

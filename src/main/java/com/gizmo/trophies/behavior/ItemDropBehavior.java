@@ -2,6 +2,7 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 public record ItemDropBehavior(ItemStack itemToDrop, int cooldown, Optional<SoundEvent> sound) implements CustomBehavior {
 
-	public static final Codec<ItemDropBehavior> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<ItemDropBehavior> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			ItemStack.CODEC.fieldOf("item").forGetter(ItemDropBehavior::itemToDrop),
 			Codec.INT.optionalFieldOf("cooldown", 0).forGetter(ItemDropBehavior::cooldown),
 			SoundEvent.DIRECT_CODEC.optionalFieldOf("sound").forGetter(ItemDropBehavior::sound)

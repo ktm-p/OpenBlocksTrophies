@@ -1,0 +1,764 @@
+{
+  "parent": "obtrophies:one_trophy",
+  "criteria": {
+    "has_horse_trophy_1": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 0
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_10": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 258
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_11": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 259
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_12": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 260
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_13": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 261
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_14": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 262
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_15": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 512
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_16": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 513
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_17": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 514
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_18": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 515
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_19": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 516
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_2": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_20": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 517
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_21": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 518
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_22": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 768
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_23": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 769
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_24": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 770
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_25": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 771
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_26": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 772
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_27": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 773
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_28": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 774
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_29": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1024
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_3": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 2
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_30": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1025
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_31": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1026
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_32": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1027
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_33": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1028
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_34": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1029
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_35": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 1030
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_4": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 3
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_5": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 4
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_6": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 5
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_7": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 6
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_8": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 256
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_horse_trophy_9": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:horse",
+                "variant": {
+                  "Variant": 257
+                }
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.obtrophies.all_horse_trophies.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:horse",
+          "variant": {
+            "Variant": 12
+          }
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
+    },
+    "title": {
+      "translate": "advancement.obtrophies.all_horse_trophies.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_horse_trophy_1"
+    ],
+    [
+      "has_horse_trophy_2"
+    ],
+    [
+      "has_horse_trophy_3"
+    ],
+    [
+      "has_horse_trophy_4"
+    ],
+    [
+      "has_horse_trophy_5"
+    ],
+    [
+      "has_horse_trophy_6"
+    ],
+    [
+      "has_horse_trophy_7"
+    ],
+    [
+      "has_horse_trophy_8"
+    ],
+    [
+      "has_horse_trophy_9"
+    ],
+    [
+      "has_horse_trophy_10"
+    ],
+    [
+      "has_horse_trophy_11"
+    ],
+    [
+      "has_horse_trophy_12"
+    ],
+    [
+      "has_horse_trophy_13"
+    ],
+    [
+      "has_horse_trophy_14"
+    ],
+    [
+      "has_horse_trophy_15"
+    ],
+    [
+      "has_horse_trophy_16"
+    ],
+    [
+      "has_horse_trophy_17"
+    ],
+    [
+      "has_horse_trophy_18"
+    ],
+    [
+      "has_horse_trophy_19"
+    ],
+    [
+      "has_horse_trophy_20"
+    ],
+    [
+      "has_horse_trophy_21"
+    ],
+    [
+      "has_horse_trophy_22"
+    ],
+    [
+      "has_horse_trophy_23"
+    ],
+    [
+      "has_horse_trophy_24"
+    ],
+    [
+      "has_horse_trophy_25"
+    ],
+    [
+      "has_horse_trophy_26"
+    ],
+    [
+      "has_horse_trophy_27"
+    ],
+    [
+      "has_horse_trophy_28"
+    ],
+    [
+      "has_horse_trophy_29"
+    ],
+    [
+      "has_horse_trophy_30"
+    ],
+    [
+      "has_horse_trophy_31"
+    ],
+    [
+      "has_horse_trophy_32"
+    ],
+    [
+      "has_horse_trophy_33"
+    ],
+    [
+      "has_horse_trophy_34"
+    ],
+    [
+      "has_horse_trophy_35"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

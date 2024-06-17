@@ -43,27 +43,8 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, Vec
 
 	public static final Codec<Optional<WithConditions<Trophy>>> CODEC = ConditionalOps.createConditionalCodecWithConditions(BASE_CODEC);
 
-	public List<CompoundTag> getVariants(@Nullable RegistryAccess access) {
+	public List<CompoundTag> getVariants(@Nullable HolderLookup.Provider access) {
 		if (this.variants.left().isPresent() && access != null) {
-			List<CompoundTag> entries = new ArrayList<>();
-			Pair<String, ResourceLocation> registryVariant = this.variants.left().get();
-			Registry<?> registry = access.registryOrThrow(ResourceKey.createRegistryKey(registryVariant.getSecond()));
-			for (Map.Entry<? extends ResourceKey<?>, ?> entry : registry.entrySet()) {
-				try {
-					entries.add(Util.make(new CompoundTag(), tag -> tag.putString(registryVariant.getFirst(), entry.getKey().location().toString())));
-				} catch (ClassCastException e) {
-					OpenBlocksTrophies.LOGGER.error("Something went wrong when trying to fetch variants from a registry!");
-					e.printStackTrace();
-				}
-			}
-			return entries;
-		}
-		return this.variants.right().orElse(new ArrayList<>());
-	}
-
-	//used for the creative tab since I don't have access to RegistryAccess there
-	public List<CompoundTag> getVariants(HolderLookup.Provider access) {
-		if (this.variants.left().isPresent()) {
 			List<CompoundTag> entries = new ArrayList<>();
 			Pair<String, ResourceLocation> registryVariant = this.variants.left().get();
 			HolderLookup<?> registry = access.lookupOrThrow(ResourceKey.createRegistryKey(registryVariant.getSecond()));
@@ -73,9 +54,8 @@ public record Trophy(boolean replace, EntityType<?> type, double dropChance, Vec
 					if (!entries.contains(formattedTag)) {
 						entries.add(formattedTag);
 					}
-				} catch (ClassCastException e) {
-					OpenBlocksTrophies.LOGGER.error("Something went wrong when trying to fetch variants from a registry!");
-					e.printStackTrace();
+				} catch (Exception e) {
+					OpenBlocksTrophies.LOGGER.error("Something went wrong when trying to fetch variants from a registry!", e);
 				}
 			}
 			return entries;

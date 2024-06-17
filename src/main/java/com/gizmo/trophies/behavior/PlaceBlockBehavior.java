@@ -2,6 +2,7 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +23,7 @@ import java.util.Locale;
 
 public record PlaceBlockBehavior(BlockState placedBlock, PlacementMethod placement, int cooldown) implements CustomBehavior {
 
-	public static final Codec<PlaceBlockBehavior> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<PlaceBlockBehavior> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			BlockState.CODEC.fieldOf("block").forGetter(PlaceBlockBehavior::placedBlock),
 			PlacementMethod.CODEC.fieldOf("method").forGetter(PlaceBlockBehavior::placement),
 			Codec.INT.optionalFieldOf("cooldown", 100).forGetter(PlaceBlockBehavior::cooldown)
@@ -77,7 +78,7 @@ public record PlaceBlockBehavior(BlockState placedBlock, PlacementMethod placeme
 			if (this.placedBlock().getBlock() instanceof SnowLayerBlock layer) {
 				int layers = level.getRandom().nextInt(8) + 1;
 				level.setBlockAndUpdate(pos, layer.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers));
-			} else if (this.placedBlock().getBlock() instanceof LiquidBlock liquid && liquid.getFluid().getFluidType().isVaporizedOnPlacement(level, pos, new FluidStack(liquid.getFluid(), FluidType.BUCKET_VOLUME))) {
+			} else if (this.placedBlock().getBlock() instanceof LiquidBlock liquid && liquid.fluid.getFluidType().isVaporizedOnPlacement(level, pos, new FluidStack(liquid.fluid, FluidType.BUCKET_VOLUME))) {
 				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F);
 			} else {
 				level.setBlockAndUpdate(pos, this.placedBlock());

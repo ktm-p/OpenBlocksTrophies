@@ -10,6 +10,9 @@
     },
     "method": "around"
   },
+  "default_variant": {
+    "Pumpkin": 1
+  },
   "variants": [
     {
       "Pumpkin": 1

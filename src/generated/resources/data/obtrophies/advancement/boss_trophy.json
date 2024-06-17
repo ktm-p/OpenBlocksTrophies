@@ -5,10 +5,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ender_dragon\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ender_dragon"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -18,10 +20,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:elder_guardian\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:elder_guardian"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -31,10 +35,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:evoker\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:evoker"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -44,10 +50,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:piglin_brute\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:piglin_brute"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -57,10 +65,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:ravager\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:ravager"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -70,10 +80,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:warden\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:warden"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -83,10 +95,12 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "obtrophies:trophy"
-            ],
-            "nbt": "{BlockEntityTag:{entity:\"minecraft:wither\"}}"
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wither"
+              }
+            },
+            "items": "obtrophies:trophy"
           }
         ]
       },
@@ -99,8 +113,13 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "obtrophies:trophy",
-      "nbt": "{BlockEntityTag:{VariantID:0,entity:\"minecraft:warden\"}}"
+      "components": {
+        "obtrophies:trophy_info": {
+          "entity": "minecraft:warden"
+        }
+      },
+      "count": 1,
+      "id": "obtrophies:trophy"
     },
     "title": {
       "translate": "advancement.obtrophies.boss_trophy.title"

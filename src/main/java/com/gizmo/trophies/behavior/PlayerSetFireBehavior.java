@@ -2,13 +2,14 @@ package com.gizmo.trophies.behavior;
 
 import com.gizmo.trophies.block.TrophyBlockEntity;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public record PlayerSetFireBehavior(int time) implements CustomBehavior {
 
-	public static final Codec<PlayerSetFireBehavior> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<PlayerSetFireBehavior> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.INT.fieldOf("seconds").forGetter(PlayerSetFireBehavior::time)
 	).apply(instance, PlayerSetFireBehavior::new));
 
@@ -19,7 +20,7 @@ public record PlayerSetFireBehavior(int time) implements CustomBehavior {
 
 	@Override
 	public int execute(TrophyBlockEntity block, ServerPlayer player, ItemStack usedItem) {
-		player.setSecondsOnFire(this.time());
+		player.igniteForSeconds(this.time());
 		return 0;
 	}
 }

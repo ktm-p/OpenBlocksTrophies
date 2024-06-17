@@ -26,7 +26,7 @@ public class JEICompat implements IModPlugin {
 
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation(OpenBlocksTrophies.MODID, "trophies");
+		return OpenBlocksTrophies.prefix("trophies");
 	}
 
 	@Override

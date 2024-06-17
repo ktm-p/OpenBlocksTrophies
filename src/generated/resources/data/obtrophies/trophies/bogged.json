@@ -1,11 +1,11 @@
 {
-  "entity": "minecraft:stray",
+  "entity": "minecraft:bogged",
   "behavior": {
     "type": "obtrophies:shoot_projectile",
     "projectile_item": {
       "components": {
         "minecraft:potion_contents": {
-          "potion": "minecraft:slowness"
+          "potion": "minecraft:poison"
         }
       },
       "id": "minecraft:tipped_arrow"

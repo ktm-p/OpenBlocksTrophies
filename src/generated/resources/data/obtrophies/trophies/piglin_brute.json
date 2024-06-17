@@ -4,11 +4,8 @@
     "type": "obtrophies:item",
     "cooldown": 20000,
     "item": {
-      "Count": 1,
-      "id": "minecraft:golden_axe",
-      "tag": {
-        "Damage": 0
-      }
+      "count": 1,
+      "id": "minecraft:golden_axe"
     }
   }
 }

@@ -9,6 +9,9 @@
     }
   ],
   "entity": "minecraft:axolotl",
+  "default_variant": {
+    "Variant": 0
+  },
   "scale": 1.25,
   "variants": [
     {

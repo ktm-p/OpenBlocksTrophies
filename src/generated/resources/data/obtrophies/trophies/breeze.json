@@ -1,3 +1,11 @@
 {
-  "entity": "minecraft:breeze"
+  "entity": "minecraft:breeze",
+  "behavior": {
+    "type": "obtrophies:shoot_projectile",
+    "projectile_item": {
+      "id": "minecraft:wind_charge"
+    },
+    "shoot_sound": "minecraft:entity.breeze.shoot",
+    "shoot_upwards": false
+  }
 }

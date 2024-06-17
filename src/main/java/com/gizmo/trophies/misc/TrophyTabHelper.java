@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 public class TrophyTabHelper {
 	public static ItemStack makeIcon() {
-		return TrophyItem.loadEntityToTrophy(EntityType.CHICKEN, 0, !Trophy.getTrophies().isEmpty());
+		return TrophyItem.createCyclingTrophy(EntityType.CHICKEN);
 	}
 
 	public static void getAllTrophies(CreativeModeTab.Output output, HolderLookup.Provider provider, FeatureFlagSet flags, boolean showVariants) {
@@ -27,11 +27,9 @@ public class TrophyTabHelper {
 			for (Map.Entry<ResourceLocation, Trophy> trophyEntry : sortedTrophies.entrySet()) {
 				if (trophyEntry.getValue().type().isEnabled(flags)) {
 					if (!trophyEntry.getValue().getVariants(provider).isEmpty() && showVariants) {
-						for (int i = 0; i < trophyEntry.getValue().getVariants(provider).size(); i++) {
-							output.accept(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), i, false));
-						}
+						trophyEntry.getValue().getVariants(provider).forEach(tag -> output.accept(TrophyItem.loadVariantToTrophy(trophyEntry.getValue().type(), tag)));
 					} else {
-						output.accept(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type(), 0, false));
+						output.accept(TrophyItem.loadEntityToTrophy(trophyEntry.getValue().type()));
 					}
 				}
 			}

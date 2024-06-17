@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 public final class TrophyRecipeViewerConstants {
-	public static final ResourceLocation BACKGROUND = new ResourceLocation(OpenBlocksTrophies.MODID, "textures/gui/trophy_jei.png");
+	public static final ResourceLocation BACKGROUND = OpenBlocksTrophies.prefix("textures/gui/trophy_jei.png");
 	public static final int WIDTH = 116;
 	public static final int HEIGHT = 54;
 
