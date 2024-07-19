@@ -38,7 +38,7 @@ public class TrophyTabHelper {
 
 	public static boolean shouldShowVariants() {
 		if (FMLLoader.getDist().isClient()) {
-			return CreativeModeVariantToggle.showVariants != null ? CreativeModeVariantToggle.showVariants.isSelected() : false;
+			return CreativeModeVariantToggle.showVariants == null || CreativeModeVariantToggle.showVariants.isSelected();
 		}
 		return true;
 	}

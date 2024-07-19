@@ -21,8 +21,7 @@ import java.util.Objects;
 public class TrophyBlockEntity extends BlockEntity {
 
 	private int cooldown = 0;
-	@Nullable
-	private CompoundTag variant = null;
+	private CompoundTag variant = new CompoundTag();
 	private Trophy trophy;
 	private String trophyName = "";
 	private boolean specialCycleVariant = false;
@@ -53,7 +52,6 @@ public class TrophyBlockEntity extends BlockEntity {
 		this.markUpdated();
 	}
 
-	@Nullable
 	public CompoundTag getVariant() {
 		return this.variant;
 	}
@@ -80,7 +78,7 @@ public class TrophyBlockEntity extends BlockEntity {
 		if (this.specialCycleVariant) {
 			tag.putBoolean("SpecialCycleVariant", true);
 		}
-		if (this.getVariant() != null) {
+		if (!this.getVariant().isEmpty()) {
 			tag.put("VariantID", this.getVariant());
 		}
 		if (!this.getTrophyName().isEmpty()) {

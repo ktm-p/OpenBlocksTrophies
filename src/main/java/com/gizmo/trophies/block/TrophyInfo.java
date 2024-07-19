@@ -36,8 +36,8 @@ public record TrophyInfo(EntityType<?> type, Optional<CompoundTag> variant, Opti
 		this(type, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
-	public TrophyInfo(EntityType<?> type, @Nullable CompoundTag variant) {
-		this(type, Optional.ofNullable(variant), Optional.empty(), Optional.empty());
+	public TrophyInfo(EntityType<?> type, CompoundTag variant) {
+		this(type, !variant.isEmpty() ? Optional.of(variant) : Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
 	public TrophyInfo(EntityType<?> type, boolean cycling) {

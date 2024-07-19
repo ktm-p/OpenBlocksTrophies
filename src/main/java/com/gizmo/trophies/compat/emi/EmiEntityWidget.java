@@ -19,10 +19,10 @@ public class EmiEntityWidget extends Widget {
 	private final EntityType<?> type;
 	private final int size;
 	private final Bounds bounds;
-	private final Optional<CompoundTag> variant;
+	private final CompoundTag variant;
 	private final Optional<CompoundTag> defaultVariant;
 
-	public EmiEntityWidget(EntityType<?> type, int x, int y, int size, Optional<CompoundTag> variant, Optional<CompoundTag> defaultVariant) {
+	public EmiEntityWidget(EntityType<?> type, int x, int y, int size, CompoundTag variant, Optional<CompoundTag> defaultVariant) {
 		this.type = type;
 		this.size = size;
 		this.bounds = new Bounds(x, y, size, size);
@@ -47,7 +47,7 @@ public class EmiEntityWidget extends Widget {
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		graphics.pose().pushPose();
 		graphics.pose().translate(this.bounds.x() + this.size / 2, this.bounds.y() + this.size - 1, 0.0D);
-		TrophyRecipeViewerConstants.renderEntity(graphics.pose(), this.type, 0, 0, this.variant.orElse(null), this.defaultVariant);
+		TrophyRecipeViewerConstants.renderEntity(graphics, this.type, 0, 0, this.variant, this.defaultVariant);
 		graphics.pose().popPose();
 	}
 }

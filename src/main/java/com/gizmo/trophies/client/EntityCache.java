@@ -23,7 +23,7 @@ public class EntityCache {
 	private static final Set<EntityType<?>> IGNORED_ENTITIES = new HashSet<>();
 
 	@Nullable
-	public static LivingEntity fetchEntity(EntityType<?> type, @Nullable Level level, @Nullable CompoundTag variant, Optional<CompoundTag> defaultVariant) {
+	public static LivingEntity fetchEntity(EntityType<?> type, @Nullable Level level, CompoundTag variant, Optional<CompoundTag> defaultVariant) {
 		if (level != null && !IGNORED_ENTITIES.contains(type)) {
 			Entity entity = null;
 			if (type == EntityType.PLAYER) {
@@ -50,7 +50,7 @@ public class EntityCache {
 			if (entity instanceof LivingEntity living) {
 				CompoundTag tag = new CompoundTag();
 				defaultVariant.ifPresent(tag1 -> tag1.getAllKeys().forEach(s -> tag.put(s, Objects.requireNonNull(tag1.get(s)))));
-				if (variant != null) {
+				if (!variant.isEmpty()) {
 					if (entity instanceof VillagerDataHolder villager) {
 						variant.getAllKeys().forEach(s -> villager.setVillagerData(new VillagerData(VillagerType.PLAINS, Objects.requireNonNull(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.VILLAGER_PROFESSION).get(ResourceLocation.tryParse(variant.getString(s)))), 1)));
 					} else {

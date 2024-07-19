@@ -12,14 +12,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public record TrophyInfoWrapper(Trophy trophy, int variant) implements IRecipeCategoryExtension<TrophyInfoWrapper> {
+public record TrophyInfoWrapper(Trophy trophy, CompoundTag variant) implements IRecipeCategoryExtension<TrophyInfoWrapper> {
 
 	public EntityType<?> getTrophyEntity() {
 		return this.trophy().type();
 	}
 
 	public ItemStack getTrophyItem() {
-		return TrophyItem.loadEntityToTrophy(this.trophy().type(), this.variant(), false);
+		return TrophyItem.loadVariantToTrophy(this.trophy().type(), this.variant());
 	}
 
 	public Optional<CompoundTag> getDefaultTrophyVariant() {

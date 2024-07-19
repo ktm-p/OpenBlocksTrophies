@@ -21,17 +21,17 @@ import java.util.Optional;
 public class AddTrophyModifier extends LootModifier {
 	public static final MapCodec<AddTrophyModifier> CODEC = RecordCodecBuilder.mapCodec(inst -> LootModifier.codecStart(inst).and(inst.group(
 			BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(o -> o.entity),
-			CompoundTag.CODEC.optionalFieldOf("variant").forGetter(o -> o.variant))
+			CompoundTag.CODEC.optionalFieldOf("variant", new CompoundTag()).forGetter(o -> o.variant))
 	).apply(inst, AddTrophyModifier::new));
 
 	private final EntityType<?> entity;
-	private final Optional<CompoundTag> variant;
+	private final CompoundTag variant;
 
 	public AddTrophyModifier(LootItemCondition[] conditions, EntityType<?> entity) {
-		this(conditions, entity, Optional.empty());
+		this(conditions, entity, new CompoundTag());
 	}
 
-	public AddTrophyModifier(LootItemCondition[] conditions, EntityType<?> entity, Optional<CompoundTag> variant) {
+	public AddTrophyModifier(LootItemCondition[] conditions, EntityType<?> entity, CompoundTag variant) {
 		super(conditions);
 		this.entity = entity;
 		this.variant = variant;
@@ -39,7 +39,7 @@ public class AddTrophyModifier extends LootModifier {
 
 	@Override
 	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		generatedLoot.add(TrophyItem.loadVariantToTrophy(this.entity, this.variant.orElse(null)));
+		generatedLoot.add(TrophyItem.loadVariantToTrophy(this.entity, this.variant));
 		return generatedLoot;
 	}
 

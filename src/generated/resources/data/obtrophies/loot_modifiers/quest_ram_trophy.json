@@ -6,5 +6,5 @@
       "loot_table_id": "twilightforest:entities/questing_ram_rewards"
     }
   ],
-  "entity": "minecraft:pig"
+  "entity": "twilightforest:quest_ram"
 }

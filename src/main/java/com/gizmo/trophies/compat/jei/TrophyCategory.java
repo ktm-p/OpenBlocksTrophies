@@ -68,7 +68,7 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 
 	@Override
 	public void draw(TrophyInfoWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-		TrophyRecipeViewerConstants.renderEntity(graphics.pose(), recipe.getTrophyEntity(), 25, 42, TrophyRecipeViewerConstants.getTrophyVariant(recipe.trophy(), recipe.variant()), recipe.getDefaultTrophyVariant());
+		TrophyRecipeViewerConstants.renderEntity(graphics, recipe.getTrophyEntity(), 25, 42, recipe.variant(), recipe.getDefaultTrophyVariant());
 
 		if (!TrophyConfig.anySourceDropsTrophies) {
 			if (TrophyConfig.fakePlayersDropTrophies) {

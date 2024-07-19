@@ -10,7 +10,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.SpawnEggItem;
@@ -18,9 +18,8 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
-public record EmiTrophyRecipe(Trophy trophy, int variant) implements EmiRecipe {
+public record EmiTrophyRecipe(ResourceLocation id, Trophy trophy, CompoundTag variant) implements EmiRecipe {
 
 	public static final EmiTexture BACKGROUND = new EmiTexture(TrophyRecipeViewerConstants.BACKGROUND, 0, 0, TrophyRecipeViewerConstants.WIDTH, TrophyRecipeViewerConstants.HEIGHT);
 	public static final EmiTexture ANY_SOURCE_INDICATOR = new EmiTexture(TrophyRecipeViewerConstants.BACKGROUND, 116, 32, 23, 15);
@@ -34,7 +33,7 @@ public record EmiTrophyRecipe(Trophy trophy, int variant) implements EmiRecipe {
 
 	@Override
 	public @Nullable ResourceLocation getId() {
-		return null;
+		return this.id();
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public record EmiTrophyRecipe(Trophy trophy, int variant) implements EmiRecipe {
 
 	@Override
 	public List<EmiStack> getOutputs() {
-		return List.of(EmiStack.of(TrophyItem.loadEntityToTrophy(this.trophy().type(), this.variant(), false)));
+		return List.of(EmiStack.of(TrophyItem.loadVariantToTrophy(this.trophy().type(), this.variant())));
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public record EmiTrophyRecipe(Trophy trophy, int variant) implements EmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		widgets.addTexture(BACKGROUND, 0, 0);
-		widgets.add(new EmiEntityWidget(this.trophy().type(), 10, 11, 32, Optional.ofNullable(TrophyRecipeViewerConstants.getTrophyVariant(this.trophy(), this.variant())), this.trophy().defaultData()));
+		widgets.add(new EmiEntityWidget(this.trophy().type(), 10, 11, 32, this.variant(), this.trophy().defaultData()));
 
 		if (!TrophyConfig.anySourceDropsTrophies) {
 			if (TrophyConfig.fakePlayersDropTrophies) {
@@ -76,7 +75,7 @@ public record EmiTrophyRecipe(Trophy trophy, int variant) implements EmiRecipe {
 			widgets.addTexture(ANY_SOURCE_INDICATOR, 50, 19);
 		}
 		widgets.addText(Component.translatable("gui.obtrophies.jei.drop_chance", TrophyRecipeViewerConstants.getTrophyDropPercentage(this.trophy())), 46, 45, 0xFF808080, false);
-		widgets.addSlot(this.getOutputs().get(0), 81, 14).large(true).drawBack(false);
+		widgets.addSlot(this.getOutputs().getFirst(), 81, 14).large(true).drawBack(false);
 	}
 
 	@Override

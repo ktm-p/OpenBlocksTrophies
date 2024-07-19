@@ -50,7 +50,7 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 	}
 
 
-	public static void renderEntity(@Nullable TrophyBlockEntity be, @Nullable CompoundTag variant, String name, Level level, BlockPos pos, Trophy trophy, PoseStack stack, MultiBufferSource source, int light, boolean cycling, PlayerTrophyModel normalTrophy, PlayerTrophyModel slimTrophy) {
+	public static void renderEntity(@Nullable TrophyBlockEntity be, CompoundTag variant, String name, Level level, BlockPos pos, Trophy trophy, PoseStack stack, MultiBufferSource source, int light, boolean cycling, PlayerTrophyModel normalTrophy, PlayerTrophyModel slimTrophy) {
 		stack.pushPose();
 		if (KEYS.isEmpty() && !Trophy.getTrophies().isEmpty()) {
 			KEYS.addAll(Trophy.getTrophies().keySet().stream().filter(location -> !location.equals(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.PLAYER))).toList());

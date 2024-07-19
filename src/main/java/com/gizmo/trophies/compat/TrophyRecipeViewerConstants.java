@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.IModInfo;
@@ -41,15 +40,7 @@ public final class TrophyRecipeViewerConstants {
 		return OpenBlocksTrophies.getTrophyDropChance(trophy) * 100;
 	}
 
-	@Nullable
-	public static CompoundTag getTrophyVariant(Trophy trophy, int variant) {
-		if (!trophy.getVariants(Minecraft.getInstance().level.registryAccess()).isEmpty()) {
-			return trophy.getVariants(Minecraft.getInstance().level.registryAccess()).get(variant);
-		}
-		return null;
-	}
-
-	public static void renderEntity(PoseStack stack, @Nullable EntityType<?> type, int x, int y, @Nullable CompoundTag variant, Optional<CompoundTag> defaultVariant) {
+	public static void renderEntity(GuiGraphics graphics, @Nullable EntityType<?> type, int x, int y, CompoundTag variant, Optional<CompoundTag> defaultVariant) {
 		if (type != null) {
 			LivingEntity entity = EntityCache.fetchEntity(type, Minecraft.getInstance().level, variant, defaultVariant);
 			if (entity != null) {
@@ -66,12 +57,7 @@ public final class TrophyRecipeViewerConstants {
 
 				// catch exceptions drawing the entity to be safe, any caught exceptions blacklist the entity
 				try {
-					PoseStack modelView = RenderSystem.getModelViewStack();
-					modelView.pushPose();
-					modelView.mulPoseMatrix(stack.last().pose());
-					renderTheEntity(x, y, scale, entity);
-					modelView.popPose();
-					RenderSystem.applyModelViewMatrix();
+					renderTheEntity(graphics, x, y, scale, entity);
 				} catch (Exception e) {
 					OpenBlocksTrophies.LOGGER.error("Error drawing entity " + BuiltInRegistries.ENTITY_TYPE.getKey(type), e);
 					EntityCache.addEntityToBlacklist(type);
@@ -81,26 +67,11 @@ public final class TrophyRecipeViewerConstants {
 	}
 
 	//[VanillaCopy] of InventoryScreen.renderEntityInInventory, with added rotations and some other modified values
-	private static void renderTheEntity(int x, int y, int scale, LivingEntity entity) {
-		PoseStack posestack = RenderSystem.getModelViewStack();
-		posestack.pushPose();
-		posestack.translate(x, y, 1050.0D);
-		applyAdditionalTransforms(entity.getType(), posestack);
-		posestack.scale(1.0F, 1.0F, -1.0F);
-		RenderSystem.applyModelViewMatrix();
-		PoseStack posestack1 = new PoseStack();
-		posestack1.translate(0.0D, 0.0D, 1000.0D);
-		if (entity instanceof EnderDragon) {
-			posestack1.mulPose(Axis.YP.rotationDegrees(180.0F));
-			posestack1.mulPose(Axis.XP.rotationDegrees(-30.0F));
-		}
-		posestack1.scale((float) scale * 0.9F, (float) scale * 0.9F, (float) scale * 0.9F);
+	private static void renderTheEntity(GuiGraphics graphics, int x, int y, int scale, LivingEntity entity) {
+		PoseStack posestack = graphics.pose();
 		Quaternionf quaternion = Axis.ZP.rotationDegrees(180.0F);
 		Quaternionf quaternion1 = Axis.XP.rotationDegrees(20.0F);
 		quaternion.mul(quaternion1);
-		posestack1.mulPose(quaternion);
-		posestack1.mulPose(Axis.XN.rotationDegrees(35.0F));
-		posestack1.mulPose(Axis.YN.rotationDegrees(145.0F));
 		float f2 = entity.yBodyRot;
 		float f3 = entity.getYRot();
 		float f4 = entity.getXRot();
@@ -111,6 +82,13 @@ public final class TrophyRecipeViewerConstants {
 		entity.setXRot(0.0F);
 		entity.yHeadRot = entity.getYRot();
 		entity.yHeadRotO = entity.getYRot();
+		posestack.pushPose();
+		posestack.translate(x, y, 50.0D);
+		applyAdditionalTransforms(entity.getType(), posestack);
+		posestack.scale((float) scale, (float) scale, (float) -scale);
+		posestack.mulPose(quaternion);
+		posestack.mulPose(Axis.XN.rotationDegrees(35.0F));
+		posestack.mulPose(Axis.YN.rotationDegrees(145.0F));
 		Lighting.setupForEntityInInventory();
 		EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
 		quaternion1.conjugate();
@@ -118,19 +96,17 @@ public final class TrophyRecipeViewerConstants {
 		boolean hitboxes = dispatcher.shouldRenderHitBoxes();
 		dispatcher.setRenderShadow(false);
 		dispatcher.setRenderHitBoxes(false);
-		MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-		RenderSystem.runAsFancy(() -> dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F, posestack1, multibuffersource$buffersource, 15728880));
-		multibuffersource$buffersource.endBatch();
+		RenderSystem.runAsFancy(() -> dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F, posestack, graphics.bufferSource(), 15728880));
+		graphics.flush();
 		dispatcher.setRenderShadow(true);
 		dispatcher.setRenderHitBoxes(hitboxes);
+		graphics.pose().popPose();
+		Lighting.setupFor3DItems();
 		entity.yBodyRot = f2;
 		entity.setYRot(f3);
 		entity.setXRot(f4);
 		entity.yHeadRotO = f5;
 		entity.yHeadRot = f6;
-		posestack.popPose();
-		RenderSystem.applyModelViewMatrix();
-		Lighting.setupFor3DItems();
 	}
 
 	//certain entities are a pain. This exists to fix vanilla cases.
@@ -139,7 +115,11 @@ public final class TrophyRecipeViewerConstants {
 			stack.translate(0.0D, -12.5D, 0.0D);
 			stack.scale(0.5F, 0.5F, 0.5F);
 		}
-		if (entity == EntityType.ENDER_DRAGON) stack.translate(0.0D, -4.0D, 0.0D);
+		if (entity == EntityType.ENDER_DRAGON) {
+			stack.translate(0.0D, -4.0D, 0.0D);
+			stack.mulPose(Axis.YP.rotationDegrees(180.0F));
+			stack.mulPose(Axis.XP.rotationDegrees(-30.0F));
+		}
 		if (entity == EntityType.WITHER) stack.translate(0.0D, 8.0D, 0.0D);
 		if (entity == EntityType.SQUID || entity == EntityType.GLOW_SQUID) stack.translate(0.0D, -19.0D, 0.0D);
 		if (entity == EntityType.ELDER_GUARDIAN) stack.scale(0.6F, 0.6F, 0.6F);

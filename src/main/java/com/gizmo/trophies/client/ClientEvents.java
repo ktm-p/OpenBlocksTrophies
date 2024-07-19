@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
@@ -27,6 +28,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -63,13 +66,19 @@ public class ClientEvents {
 			event.registerLayerDefinition(SLIM_PLAYER_TROPHY, () -> LayerDefinition.create(PlayerTrophyModel.createMesh(true), 64, 64));
 		});
 		NeoForge.EVENT_BUS.addListener(ClientEvents::dontRenderTrophyHitbox);
+		bus.addListener(RegisterClientExtensionsEvent.class, event -> event.registerItem(new IClientItemExtensions() {
+			@Override
+			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+				return new TrophyItemRenderer();
+			}
+		}, TrophyRegistries.TROPHY_ITEM.get()));
 	}
 
 	//disables rendering the trophy hitbox if there's no visible pedestal.
 	//why? because I hate when hitboxes don't fit the block, and making it fit depending on entity is impossible.
 	//so, we'll just make the hitbox rather large (almost a full block) but invisible.
 	//this event also handles rendering name tags of player trophies when hovering over them
-	public static void dontRenderTrophyHitbox(RenderHighlightEvent.Block event) {
+	private static void dontRenderTrophyHitbox(RenderHighlightEvent.Block event) {
 		BlockState state = event.getCamera().getEntity().level().getBlockState(event.getTarget().getBlockPos());
 		if (state.is(TrophyRegistries.TROPHY)) {
 			if (TrophyConfig.playersRenderNames) {

@@ -2,10 +2,8 @@ package com.gizmo.trophies.item;
 
 import com.gizmo.trophies.block.TrophyInfo;
 import com.gizmo.trophies.misc.TrophyRegistries;
-import com.gizmo.trophies.client.TrophyItemRenderer;
 import com.gizmo.trophies.trophy.Trophy;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,7 +19,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforgespi.language.IModInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class TrophyItem extends BlockItem {
 
@@ -61,13 +57,10 @@ public class TrophyItem extends BlockItem {
 	}
 
 	public static ItemStack loadEntityToTrophy(EntityType<?> type) {
-		ItemStack stack = new ItemStack(TrophyRegistries.TROPHY_ITEM.get());
-		stack.set(TrophyRegistries.TROPHY_INFO, new TrophyInfo(type));
-		stack.set(DataComponents.RARITY, getTrophyRarity(stack));
-		return stack;
+		return loadVariantToTrophy(type, new CompoundTag());
 	}
 
-	public static ItemStack loadVariantToTrophy(EntityType<?> type, @Nullable CompoundTag variant) {
+	public static ItemStack loadVariantToTrophy(EntityType<?> type, CompoundTag variant) {
 		ItemStack stack = new ItemStack(TrophyRegistries.TROPHY_ITEM.get());
 		stack.set(TrophyRegistries.TROPHY_INFO, new TrophyInfo(type, variant));
 		stack.set(DataComponents.RARITY, getTrophyRarity(stack));
@@ -81,14 +74,13 @@ public class TrophyItem extends BlockItem {
 		return stack;
 	}
 
-	@Nullable
 	public static CompoundTag getTrophyVariant(@Nonnull ItemStack stack) {
 		TrophyInfo info = stack.get(TrophyRegistries.TROPHY_INFO);
 		if (info != null && info.variant().isPresent()) {
 			return info.variant().get();
 		}
 
-		return null;
+		return new CompoundTag();
 	}
 
 	public static Rarity getTrophyRarity(ItemStack stack) {
@@ -122,7 +114,7 @@ public class TrophyItem extends BlockItem {
 			if (flag.isAdvanced()) {
 				CompoundTag variant = getTrophyVariant(stack);
 				HolderLookup.Provider provider = context.registries();
-				if (provider != null && !trophy.getVariants(provider).isEmpty() && variant != null) {
+				if (provider != null && !trophy.getVariants(provider).isEmpty() && !variant.isEmpty()) {
 					variant.getAllKeys().forEach(s -> tooltip.add(Component.translatable("item.obtrophies.trophy.variant", s, Objects.requireNonNull(variant.get(s)).getAsString()).withStyle(ChatFormatting.GRAY)));
 				}
 			}
@@ -140,15 +132,5 @@ public class TrophyItem extends BlockItem {
 	@Nullable
 	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
 		return EquipmentSlot.HEAD;
-	}
-
-	@Override
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(new IClientItemExtensions() {
-			@Override
-			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-				return new TrophyItemRenderer();
-			}
-		});
 	}
 }
