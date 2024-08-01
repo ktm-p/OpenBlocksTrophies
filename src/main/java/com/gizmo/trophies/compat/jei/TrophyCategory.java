@@ -2,6 +2,7 @@ package com.gizmo.trophies.compat.jei;
 
 import com.gizmo.trophies.compat.TrophyRecipeViewerConstants;
 import com.gizmo.trophies.config.TrophyConfig;
+import com.gizmo.trophies.misc.TranslatableStrings;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -43,7 +44,7 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 		this.playerIcon = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 116, 16, 16, 16);
 		this.arrowIcon = helper.createDrawable(TrophyRecipeViewerConstants.BACKGROUND, 116, 32, 23, 15);
 		this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, Items.DIAMOND_SWORD.getDefaultInstance());
-		this.localizedName = Component.translatable("gui.obtrophies.trophy_jei");
+		this.localizedName = Component.translatable(TranslatableStrings.TROPHY_CATEGORY);
 	}
 
 	@Override
@@ -70,14 +71,10 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 	public void draw(TrophyInfoWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
 		TrophyRecipeViewerConstants.renderEntity(graphics, recipe.getTrophyEntity(), 25, 42, recipe.variant(), recipe.getDefaultTrophyVariant());
 
-		if (!TrophyConfig.anySourceDropsTrophies) {
-			if (TrophyConfig.fakePlayersDropTrophies) {
-				this.fakePlayerIcon.draw(graphics, 54, 19);
-			} else {
-				this.playerIcon.draw(graphics, 54, 19);
-			}
-		} else {
-			this.arrowIcon.draw(graphics, 50, 19);
+		switch (TrophyConfig.trophyDropSource) {
+			case ALL -> this.arrowIcon.draw(graphics, 50, 19);
+			case FAKE_PLAYER -> this.fakePlayerIcon.draw(graphics, 54, 19);
+			case PLAYER -> this.playerIcon.draw(graphics, 54, 19);
 		}
 		if (mouseX > 8 && mouseX < 43 && mouseY > 9 && mouseY < 44) {
 			AbstractContainerScreen.renderSlotHighlight(graphics, 10, 11, 0);
@@ -85,7 +82,7 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 			AbstractContainerScreen.renderSlotHighlight(graphics, 10, 27, 0);
 			AbstractContainerScreen.renderSlotHighlight(graphics, 26, 27, 0);
 		}
-		graphics.drawString(Minecraft.getInstance().font, Component.translatable("gui.obtrophies.jei.drop_chance", TrophyRecipeViewerConstants.getTrophyDropPercentage(recipe.trophy())), 46, 45, 0xFF808080, false);
+		graphics.drawString(Minecraft.getInstance().font, Component.translatable(TranslatableStrings.TROPHY_DROP_CHANCE, TrophyRecipeViewerConstants.getTrophyDropPercentage(recipe.trophy())), 46, 45, 0xFF808080, false);
 	}
 
 	@Override
@@ -99,10 +96,10 @@ public class TrophyCategory implements IRecipeCategory<TrophyInfoWrapper> {
 			components.add(Component.literal(this.getModIdForTooltip(BuiltInRegistries.ENTITY_TYPE.getKey(recipe.getTrophyEntity()).getNamespace())).withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC));
 		}
 
-		if (mouseX > 51 && mouseX < 73 && mouseY > 19 && mouseY < 34 && !TrophyConfig.anySourceDropsTrophies) {
-			components.add(Component.translatable("gui.obtrophies.jei.player_drops").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-			if (TrophyConfig.fakePlayersDropTrophies) {
-				components.add(Component.translatable("gui.obtrophies.jei.fake_player_drops").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+		if (mouseX > 51 && mouseX < 73 && mouseY > 19 && mouseY < 34 && TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.ALL) {
+			components.add(Component.translatable(TranslatableStrings.TROPHY_PLAYER).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+			if (TrophyConfig.trophyDropSource == TrophyConfig.TrophySourceDrop.FAKE_PLAYER) {
+				components.add(Component.translatable(TranslatableStrings.TROPHY_FAKE_PLAYER).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 			}
 		}
 		return components;

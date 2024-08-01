@@ -10,7 +10,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EntityType;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ public record TrophyInfo(EntityType<?> type, Optional<CompoundTag> variant, Opti
 		if (trophy.getTrophy() != null) {
 			Optional<Unit> cycling = trophy.isCycling() ? Optional.of(Unit.INSTANCE) : Optional.empty();
 			Optional<Integer> cooldown = trophy.getCooldown() > 0 ? Optional.of(trophy.getCooldown()) : Optional.empty();
-			return new TrophyInfo(trophy.getTrophy().type(), Optional.ofNullable(trophy.getVariant()), cycling, cooldown);
+			return new TrophyInfo(trophy.getTrophy().type(), Optional.of(trophy.getVariant()), cycling, cooldown);
 		}
 		return DEFAULT;
 	}

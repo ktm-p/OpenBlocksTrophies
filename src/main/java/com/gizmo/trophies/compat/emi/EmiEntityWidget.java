@@ -46,7 +46,7 @@ public class EmiEntityWidget extends Widget {
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		graphics.pose().pushPose();
-		graphics.pose().translate(this.bounds.x() + this.size / 2, this.bounds.y() + this.size - 1, 0.0D);
+		graphics.pose().translate(this.bounds.x() + this.size / 2.0F, this.bounds.y() + this.size - 1, 0.0D);
 		TrophyRecipeViewerConstants.renderEntity(graphics, this.type, 0, 0, this.variant, this.defaultVariant);
 		graphics.pose().popPose();
 	}

@@ -1,5 +1,6 @@
 package com.gizmo.trophies.misc;
 
+import com.gizmo.trophies.OpenBlocksTrophies;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -23,7 +24,7 @@ public class AmbientSoundFetcher {
 		try {
 			tmp_handle_Mob_getAmbientSound = LOOKUP.unreflect(Mob_getAmbientSound);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			OpenBlocksTrophies.LOGGER.error("Could not unreflect mob ambient sounds: ", e);
 		}
 		handle_Mob_getAmbientSound = tmp_handle_Mob_getAmbientSound;
 	}

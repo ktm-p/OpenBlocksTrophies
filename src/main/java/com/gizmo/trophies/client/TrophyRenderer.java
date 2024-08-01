@@ -24,13 +24,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaterniond;
-import org.joml.Quaternionf;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,7 +45,6 @@ public class TrophyRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 		this.trophy = new PlayerTrophyModel(context.bakeLayer(ClientEvents.PLAYER_TROPHY), false);
 		this.slimTrophy = new PlayerTrophyModel(context.bakeLayer(ClientEvents.SLIM_PLAYER_TROPHY), true);
 	}
-
 
 	public static void renderEntity(@Nullable TrophyBlockEntity be, CompoundTag variant, String name, Level level, BlockPos pos, Trophy trophy, PoseStack stack, MultiBufferSource source, int light, boolean cycling, PlayerTrophyModel normalTrophy, PlayerTrophyModel slimTrophy) {
 		stack.pushPose();

@@ -46,5 +46,8 @@
       "has_blue_axolotl_trophy"
     ]
   ],
+  "rewards": {
+    "experience": 500
+  },
   "sends_telemetry_event": true
 }

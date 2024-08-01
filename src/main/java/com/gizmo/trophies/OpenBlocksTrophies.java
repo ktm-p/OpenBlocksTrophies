@@ -6,6 +6,7 @@ import com.gizmo.trophies.client.ClientEvents;
 import com.gizmo.trophies.client.CreativeModeVariantToggle;
 import com.gizmo.trophies.config.ConfigSetup;
 import com.gizmo.trophies.config.TrophyConfig;
+import com.gizmo.trophies.data.LangGenerator;
 import com.gizmo.trophies.data.LootModifierGenerator;
 import com.gizmo.trophies.data.TrophyAdvancementProvider;
 import com.gizmo.trophies.data.TrophyGenerator;
@@ -24,9 +25,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.util.InclusiveRange;
+import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
@@ -38,6 +43,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -47,11 +53,14 @@ public class OpenBlocksTrophies {
 
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
+	public static final List<EntityType<?>> UNUSED_TYPES = List.of(EntityType.GIANT, EntityType.ILLUSIONER, EntityType.ZOMBIE_HORSE);
+
 	public static final ResourceKey<Registry<CustomBehaviorType>> CUSTOM_BEHAVIORS_KEY = ResourceKey.createRegistryKey(prefix("custom_behavior"));
 	public static final Registry<CustomBehaviorType> CUSTOM_BEHAVIORS = new RegistryBuilder<>(CUSTOM_BEHAVIORS_KEY).sync(true).create();
 
 	public OpenBlocksTrophies(IEventBus bus, Dist dist) {
 		Reflection.initialize(ConfigSetup.class);
+		ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> ConfigurationScreen::new);
 		if (dist.isClient()) {
 			ClientEvents.init(bus);
 			CreativeModeVariantToggle.setupButton();
@@ -84,6 +93,7 @@ public class OpenBlocksTrophies {
 	}
 
 	public void gatherData(GatherDataEvent event) {
+		event.getGenerator().addProvider(event.includeClient(), new LangGenerator(event.getGenerator().getPackOutput()));
 		event.getGenerator().addProvider(event.includeServer(), new LootModifierGenerator(event.getGenerator().getPackOutput(), event.getLookupProvider()));
 		event.getGenerator().addProvider(event.includeServer(), new TrophyGenerator(event.getGenerator().getPackOutput()));
 		event.getGenerator().addProvider(event.includeServer(), new TrophyAdvancementProvider(event.getGenerator().getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));

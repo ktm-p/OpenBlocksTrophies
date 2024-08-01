@@ -1,7 +1,7 @@
 {
   "parent": "obtrophies:one_trophy",
   "criteria": {
-    "has_allay_trophy": {
+    "allay": {
       "conditions": {
         "items": [
           {
@@ -16,7 +16,22 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_axolotl_trophy": {
+    "armadillo": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:armadillo"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "axolotl": {
       "conditions": {
         "items": [
           {
@@ -31,7 +46,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_bat_trophy": {
+    "bat": {
       "conditions": {
         "items": [
           {
@@ -46,7 +61,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_bee_trophy": {
+    "bee": {
       "conditions": {
         "items": [
           {
@@ -61,7 +76,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_blaze_trophy": {
+    "blaze": {
       "conditions": {
         "items": [
           {
@@ -76,7 +91,37 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_camel_trophy": {
+    "bogged": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:bogged"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "breeze": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:breeze"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "camel": {
       "conditions": {
         "items": [
           {
@@ -91,7 +136,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_cat_trophy": {
+    "cat": {
       "conditions": {
         "items": [
           {
@@ -106,7 +151,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_cave_spider_trophy": {
+    "cave_spider": {
       "conditions": {
         "items": [
           {
@@ -121,7 +166,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_chicken_trophy": {
+    "chicken": {
       "conditions": {
         "items": [
           {
@@ -136,7 +181,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_cod_trophy": {
+    "cod": {
       "conditions": {
         "items": [
           {
@@ -151,7 +196,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_cow_trophy": {
+    "cow": {
       "conditions": {
         "items": [
           {
@@ -166,7 +211,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_creeper_trophy": {
+    "creeper": {
       "conditions": {
         "items": [
           {
@@ -181,7 +226,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_dolphin_trophy": {
+    "dolphin": {
       "conditions": {
         "items": [
           {
@@ -196,7 +241,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_donkey_trophy": {
+    "donkey": {
       "conditions": {
         "items": [
           {
@@ -211,7 +256,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_drowned_trophy": {
+    "drowned": {
       "conditions": {
         "items": [
           {
@@ -226,7 +271,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_elder_guardian_trophy": {
+    "elder_guardian": {
       "conditions": {
         "items": [
           {
@@ -241,7 +286,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_ender_dragon_trophy": {
+    "ender_dragon": {
       "conditions": {
         "items": [
           {
@@ -256,7 +301,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_enderman_trophy": {
+    "enderman": {
       "conditions": {
         "items": [
           {
@@ -271,7 +316,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_endermite_trophy": {
+    "endermite": {
       "conditions": {
         "items": [
           {
@@ -286,7 +331,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_evoker_trophy": {
+    "evoker": {
       "conditions": {
         "items": [
           {
@@ -301,7 +346,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_fox_trophy": {
+    "fox": {
       "conditions": {
         "items": [
           {
@@ -316,7 +361,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_frog_trophy": {
+    "frog": {
       "conditions": {
         "items": [
           {
@@ -331,7 +376,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_ghast_trophy": {
+    "ghast": {
       "conditions": {
         "items": [
           {
@@ -346,7 +391,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_glow_squid_trophy": {
+    "glow_squid": {
       "conditions": {
         "items": [
           {
@@ -361,7 +406,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_goat_trophy": {
+    "goat": {
       "conditions": {
         "items": [
           {
@@ -376,7 +421,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_guardian_trophy": {
+    "guardian": {
       "conditions": {
         "items": [
           {
@@ -391,7 +436,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_hoglin_trophy": {
+    "hoglin": {
       "conditions": {
         "items": [
           {
@@ -406,7 +451,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_horse_trophy": {
+    "horse": {
       "conditions": {
         "items": [
           {
@@ -421,7 +466,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_husk_trophy": {
+    "husk": {
       "conditions": {
         "items": [
           {
@@ -436,7 +481,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_iron_golem_trophy": {
+    "iron_golem": {
       "conditions": {
         "items": [
           {
@@ -451,7 +496,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_llama_trophy": {
+    "llama": {
       "conditions": {
         "items": [
           {
@@ -466,7 +511,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_magma_cube_trophy": {
+    "magma_cube": {
       "conditions": {
         "items": [
           {
@@ -481,7 +526,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_mooshroom_trophy": {
+    "mooshroom": {
       "conditions": {
         "items": [
           {
@@ -496,7 +541,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_mule_trophy": {
+    "mule": {
       "conditions": {
         "items": [
           {
@@ -511,7 +556,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_ocelot_trophy": {
+    "ocelot": {
       "conditions": {
         "items": [
           {
@@ -526,7 +571,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_panda_trophy": {
+    "panda": {
       "conditions": {
         "items": [
           {
@@ -541,7 +586,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_parrot_trophy": {
+    "parrot": {
       "conditions": {
         "items": [
           {
@@ -556,7 +601,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_phantom_trophy": {
+    "phantom": {
       "conditions": {
         "items": [
           {
@@ -571,7 +616,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_pig_trophy": {
+    "pig": {
       "conditions": {
         "items": [
           {
@@ -586,22 +631,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_piglin_brute_trophy": {
-      "conditions": {
-        "items": [
-          {
-            "components": {
-              "obtrophies:trophy_info": {
-                "entity": "minecraft:piglin_brute"
-              }
-            },
-            "items": "obtrophies:trophy"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_piglin_trophy": {
+    "piglin": {
       "conditions": {
         "items": [
           {
@@ -616,7 +646,22 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_pillager_trophy": {
+    "piglin_brute": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:piglin_brute"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "pillager": {
       "conditions": {
         "items": [
           {
@@ -631,7 +676,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_polar_bear_trophy": {
+    "polar_bear": {
       "conditions": {
         "items": [
           {
@@ -646,7 +691,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_pufferfish_trophy": {
+    "pufferfish": {
       "conditions": {
         "items": [
           {
@@ -661,7 +706,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_rabbit_trophy": {
+    "rabbit": {
       "conditions": {
         "items": [
           {
@@ -676,7 +721,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_ravager_trophy": {
+    "ravager": {
       "conditions": {
         "items": [
           {
@@ -691,7 +736,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_salmon_trophy": {
+    "salmon": {
       "conditions": {
         "items": [
           {
@@ -706,7 +751,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_sheep_trophy": {
+    "sheep": {
       "conditions": {
         "items": [
           {
@@ -721,7 +766,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_shulker_trophy": {
+    "shulker": {
       "conditions": {
         "items": [
           {
@@ -736,7 +781,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_silverfish_trophy": {
+    "silverfish": {
       "conditions": {
         "items": [
           {
@@ -751,22 +796,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_skeleton_horse_trophy": {
-      "conditions": {
-        "items": [
-          {
-            "components": {
-              "obtrophies:trophy_info": {
-                "entity": "minecraft:skeleton_horse"
-              }
-            },
-            "items": "obtrophies:trophy"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_skeleton_trophy": {
+    "skeleton": {
       "conditions": {
         "items": [
           {
@@ -781,7 +811,22 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_slime_trophy": {
+    "skeleton_horse": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:skeleton_horse"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "slime": {
       "conditions": {
         "items": [
           {
@@ -796,7 +841,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_sniffer_trophy": {
+    "sniffer": {
       "conditions": {
         "items": [
           {
@@ -811,7 +856,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_snow_golem_trophy": {
+    "snow_golem": {
       "conditions": {
         "items": [
           {
@@ -826,7 +871,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_spider_trophy": {
+    "spider": {
       "conditions": {
         "items": [
           {
@@ -841,7 +886,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_squid_trophy": {
+    "squid": {
       "conditions": {
         "items": [
           {
@@ -856,7 +901,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_stray_trophy": {
+    "stray": {
       "conditions": {
         "items": [
           {
@@ -871,7 +916,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_strider_trophy": {
+    "strider": {
       "conditions": {
         "items": [
           {
@@ -886,7 +931,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_tadpole_trophy": {
+    "tadpole": {
       "conditions": {
         "items": [
           {
@@ -901,7 +946,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_trader_llama_trophy": {
+    "trader_llama": {
       "conditions": {
         "items": [
           {
@@ -916,7 +961,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_tropical_fish_trophy": {
+    "tropical_fish": {
       "conditions": {
         "items": [
           {
@@ -931,7 +976,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_turtle_trophy": {
+    "turtle": {
       "conditions": {
         "items": [
           {
@@ -946,7 +991,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_vex_trophy": {
+    "vex": {
       "conditions": {
         "items": [
           {
@@ -961,7 +1006,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_villager_trophy": {
+    "villager": {
       "conditions": {
         "items": [
           {
@@ -976,7 +1021,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_vindicator_trophy": {
+    "vindicator": {
       "conditions": {
         "items": [
           {
@@ -991,7 +1036,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_wandering_trader_trophy": {
+    "wandering_trader": {
       "conditions": {
         "items": [
           {
@@ -1006,7 +1051,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_warden_trophy": {
+    "warden": {
       "conditions": {
         "items": [
           {
@@ -1021,7 +1066,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_witch_trophy": {
+    "witch": {
       "conditions": {
         "items": [
           {
@@ -1036,22 +1081,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_wither_skeleton_trophy": {
-      "conditions": {
-        "items": [
-          {
-            "components": {
-              "obtrophies:trophy_info": {
-                "entity": "minecraft:wither_skeleton"
-              }
-            },
-            "items": "obtrophies:trophy"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_wither_trophy": {
+    "wither": {
       "conditions": {
         "items": [
           {
@@ -1066,7 +1096,22 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_wolf_trophy": {
+    "wither_skeleton": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "obtrophies:trophy_info": {
+                "entity": "minecraft:wither_skeleton"
+              }
+            },
+            "items": "obtrophies:trophy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "wolf": {
       "conditions": {
         "items": [
           {
@@ -1081,7 +1126,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_zoglin_trophy": {
+    "zoglin": {
       "conditions": {
         "items": [
           {
@@ -1096,7 +1141,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_zombie_trophy": {
+    "zombie": {
       "conditions": {
         "items": [
           {
@@ -1111,7 +1156,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_zombie_villager_trophy": {
+    "zombie_villager": {
       "conditions": {
         "items": [
           {
@@ -1126,7 +1171,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_zombified_piglin_trophy": {
+    "zombified_piglin": {
       "conditions": {
         "items": [
           {
@@ -1162,233 +1207,245 @@
   },
   "requirements": [
     [
-      "has_allay_trophy"
+      "allay"
     ],
     [
-      "has_axolotl_trophy"
+      "armadillo"
     ],
     [
-      "has_bat_trophy"
+      "axolotl"
     ],
     [
-      "has_bee_trophy"
+      "bat"
     ],
     [
-      "has_blaze_trophy"
+      "bee"
     ],
     [
-      "has_camel_trophy"
+      "blaze"
     ],
     [
-      "has_cat_trophy"
+      "bogged"
     ],
     [
-      "has_cave_spider_trophy"
+      "breeze"
     ],
     [
-      "has_chicken_trophy"
+      "camel"
     ],
     [
-      "has_cod_trophy"
+      "cat"
     ],
     [
-      "has_cow_trophy"
+      "cave_spider"
     ],
     [
-      "has_creeper_trophy"
+      "chicken"
     ],
     [
-      "has_dolphin_trophy"
+      "cod"
     ],
     [
-      "has_donkey_trophy"
+      "cow"
     ],
     [
-      "has_drowned_trophy"
+      "creeper"
     ],
     [
-      "has_elder_guardian_trophy"
+      "dolphin"
     ],
     [
-      "has_ender_dragon_trophy"
+      "donkey"
     ],
     [
-      "has_enderman_trophy"
+      "drowned"
     ],
     [
-      "has_endermite_trophy"
+      "elder_guardian"
     ],
     [
-      "has_evoker_trophy"
+      "ender_dragon"
     ],
     [
-      "has_fox_trophy"
+      "enderman"
     ],
     [
-      "has_frog_trophy"
+      "endermite"
     ],
     [
-      "has_ghast_trophy"
+      "evoker"
     ],
     [
-      "has_glow_squid_trophy"
+      "fox"
     ],
     [
-      "has_goat_trophy"
+      "frog"
     ],
     [
-      "has_guardian_trophy"
+      "ghast"
     ],
     [
-      "has_hoglin_trophy"
+      "glow_squid"
     ],
     [
-      "has_horse_trophy"
+      "goat"
     ],
     [
-      "has_husk_trophy"
+      "guardian"
     ],
     [
-      "has_iron_golem_trophy"
+      "hoglin"
     ],
     [
-      "has_llama_trophy"
+      "horse"
     ],
     [
-      "has_magma_cube_trophy"
+      "husk"
     ],
     [
-      "has_mooshroom_trophy"
+      "iron_golem"
     ],
     [
-      "has_mule_trophy"
+      "llama"
     ],
     [
-      "has_ocelot_trophy"
+      "magma_cube"
     ],
     [
-      "has_panda_trophy"
+      "mooshroom"
     ],
     [
-      "has_parrot_trophy"
+      "mule"
     ],
     [
-      "has_phantom_trophy"
+      "ocelot"
     ],
     [
-      "has_pig_trophy"
+      "panda"
     ],
     [
-      "has_piglin_trophy"
+      "parrot"
     ],
     [
-      "has_piglin_brute_trophy"
+      "phantom"
     ],
     [
-      "has_pillager_trophy"
+      "pig"
     ],
     [
-      "has_polar_bear_trophy"
+      "piglin"
     ],
     [
-      "has_pufferfish_trophy"
+      "piglin_brute"
     ],
     [
-      "has_rabbit_trophy"
+      "pillager"
     ],
     [
-      "has_ravager_trophy"
+      "polar_bear"
     ],
     [
-      "has_salmon_trophy"
+      "pufferfish"
     ],
     [
-      "has_sheep_trophy"
+      "rabbit"
     ],
     [
-      "has_shulker_trophy"
+      "ravager"
     ],
     [
-      "has_silverfish_trophy"
+      "salmon"
     ],
     [
-      "has_skeleton_trophy"
+      "sheep"
     ],
     [
-      "has_skeleton_horse_trophy"
+      "shulker"
     ],
     [
-      "has_slime_trophy"
+      "silverfish"
     ],
     [
-      "has_sniffer_trophy"
+      "skeleton"
     ],
     [
-      "has_snow_golem_trophy"
+      "skeleton_horse"
     ],
     [
-      "has_spider_trophy"
+      "slime"
     ],
     [
-      "has_squid_trophy"
+      "sniffer"
     ],
     [
-      "has_stray_trophy"
+      "snow_golem"
     ],
     [
-      "has_strider_trophy"
+      "spider"
     ],
     [
-      "has_tadpole_trophy"
+      "squid"
     ],
     [
-      "has_trader_llama_trophy"
+      "stray"
     ],
     [
-      "has_tropical_fish_trophy"
+      "strider"
     ],
     [
-      "has_turtle_trophy"
+      "tadpole"
     ],
     [
-      "has_vex_trophy"
+      "trader_llama"
     ],
     [
-      "has_villager_trophy"
+      "tropical_fish"
     ],
     [
-      "has_vindicator_trophy"
+      "turtle"
     ],
     [
-      "has_wandering_trader_trophy"
+      "vex"
     ],
     [
-      "has_warden_trophy"
+      "villager"
     ],
     [
-      "has_witch_trophy"
+      "vindicator"
     ],
     [
-      "has_wither_trophy"
+      "wandering_trader"
     ],
     [
-      "has_wither_skeleton_trophy"
+      "warden"
     ],
     [
-      "has_wolf_trophy"
+      "witch"
     ],
     [
-      "has_zoglin_trophy"
+      "wither"
     ],
     [
-      "has_zombie_trophy"
+      "wither_skeleton"
     ],
     [
-      "has_zombie_villager_trophy"
+      "wolf"
     ],
     [
-      "has_zombified_piglin_trophy"
+      "zoglin"
+    ],
+    [
+      "zombie"
+    ],
+    [
+      "zombie_villager"
+    ],
+    [
+      "zombified_piglin"
     ]
   ],
+  "rewards": {
+    "experience": 1000
+  },
   "sends_telemetry_event": true
 }

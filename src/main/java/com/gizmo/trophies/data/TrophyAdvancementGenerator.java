@@ -1,26 +1,30 @@
 package com.gizmo.trophies.data;
 
+import com.gizmo.trophies.OpenBlocksTrophies;
 import com.gizmo.trophies.block.TrophyInfo;
+import com.gizmo.trophies.misc.TrophiesCommands;
 import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.item.TrophyItem;
 import net.minecraft.Util;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementRequirements;
-import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.entity.animal.horse.Markings;
+import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class TrophyAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
@@ -33,199 +37,98 @@ public class TrophyAdvancementGenerator implements AdvancementProvider.Advanceme
 				Component.translatable("advancement.obtrophies.root.desc"),
 				ResourceLocation.withDefaultNamespace("textures/block/dark_prismarine.png"),
 				AdvancementType.TASK, false, false, false)
-				.addCriterion("has_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(TrophyRegistries.TROPHY_ITEM))
-				.save(consumer, "obtrophies:root");
+			.addCriterion("has_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(TrophyRegistries.TROPHY_ITEM))
+			.save(consumer, "obtrophies:root");
 
 		AdvancementHolder oneTrophy = Advancement.Builder.advancement().parent(root).display(
-						TrophyItem.createCyclingTrophy(EntityType.CHICKEN),
-						Component.translatable("advancement.obtrophies.one_trophy.title"),
-						Component.translatable("advancement.obtrophies.one_trophy.desc"),
-						null, AdvancementType.GOAL, true, true, false)
-				.addCriterion("has_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(TrophyRegistries.TROPHY_ITEM))
-				.save(consumer, "obtrophies:one_trophy");
+				TrophyItem.createCyclingTrophy(EntityType.CHICKEN),
+				Component.translatable("advancement.obtrophies.one_trophy.title"),
+				Component.translatable("advancement.obtrophies.one_trophy.desc"),
+				null, AdvancementType.GOAL, true, true, false)
+			.addCriterion("has_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(TrophyRegistries.TROPHY_ITEM))
+			.save(consumer, "obtrophies:one_trophy");
 
 		Advancement.Builder.advancement().parent(oneTrophy).display(
-						TrophyItem.loadEntityToTrophy(EntityType.WARDEN),
-						Component.translatable("advancement.obtrophies.boss_trophy.title"),
-						Component.translatable("advancement.obtrophies.boss_trophy.desc"),
-						null, AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("has_wither_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WITHER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_dragon_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ENDER_DRAGON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_elder_guardian_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ELDER_GUARDIAN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_evoker_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.EVOKER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_warden_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WARDEN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_ravager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.RAVAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_piglin_brute_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PIGLIN_BRUTE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(consumer, "obtrophies:boss_trophy");
+				TrophyItem.loadEntityToTrophy(EntityType.WARDEN),
+				Component.translatable("advancement.obtrophies.boss_trophy.title"),
+				Component.translatable("advancement.obtrophies.boss_trophy.desc"),
+				null, AdvancementType.CHALLENGE, true, true, false)
+			.addCriterion("has_wither_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WITHER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_dragon_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ENDER_DRAGON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_elder_guardian_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ELDER_GUARDIAN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_evoker_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.EVOKER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_warden_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WARDEN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_ravager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.RAVAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.addCriterion("has_piglin_brute_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PIGLIN_BRUTE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.requirements(AdvancementRequirements.Strategy.OR)
+			.rewards(AdvancementRewards.Builder.experience(100))
+			.save(consumer, "obtrophies:boss_trophy");
 
 		Advancement.Builder.advancement().parent(oneTrophy).display(
-						TrophyItem.loadVariantToTrophy(EntityType.AXOLOTL, this.makeIntVariant(4)),
-						Component.translatable("advancement.obtrophies.rarest_trophy.title"),
-						Component.translatable("advancement.obtrophies.rarest_trophy.desc"),
-						null, AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("has_blue_axolotl_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.AXOLOTL, this.makeIntVariant(4))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.save(consumer, "obtrophies:rarest_trophy");
+				TrophyItem.loadVariantToTrophy(EntityType.AXOLOTL, this.makeIntVariant(4)),
+				Component.translatable("advancement.obtrophies.rarest_trophy.title"),
+				Component.translatable("advancement.obtrophies.rarest_trophy.desc"),
+				null, AdvancementType.CHALLENGE, true, true, false)
+			.addCriterion("has_blue_axolotl_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.AXOLOTL, this.makeIntVariant(4))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
+			.rewards(AdvancementRewards.Builder.experience(500))
+			.save(consumer, "obtrophies:rarest_trophy");
 
-		Advancement.Builder.advancement().parent(oneTrophy).display(
-						TrophyItem.loadVariantToTrophy(EntityType.HORSE, this.makeIntVariant(12)),
-						Component.translatable("advancement.obtrophies.all_horse_trophies.title"),
-						Component.translatable("advancement.obtrophies.all_horse_trophies.desc"),
-						null, AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("has_horse_trophy_1", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(0))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_2", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_3", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(2))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_4", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(3))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_5", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(4))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_6", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(5))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_7", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(6))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_8", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(256))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_9", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(257))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_10", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(258))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_11", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(259))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_12", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(260))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_13", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(261))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_14", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(262))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_15", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(512))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_16", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(513))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_17", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(514))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_18", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(515))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_19", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(516))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_20", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(517))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_21", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(518))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_22", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(768))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_23", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(769))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_24", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(770))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_25", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(771))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_26", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(772))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_27", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(773))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_28", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(774))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_29", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1024))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_30", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1025))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_31", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1026))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_32", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1027))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_33", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1028))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_34", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1029))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy_35", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(1030))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.requirements(AdvancementRequirements.Strategy.AND)
-				.save(consumer, "obtrophies:all_horse_trophies");
+		this.makeHorses(Advancement.Builder.advancement().parent(oneTrophy).display(
+				TrophyItem.loadVariantToTrophy(EntityType.HORSE, this.makeIntVariant(12)),
+				Component.translatable("advancement.obtrophies.all_horse_trophies.title"),
+				Component.translatable("advancement.obtrophies.all_horse_trophies.desc"),
+				null, AdvancementType.CHALLENGE, true, true, false)
+			).requirements(AdvancementRequirements.Strategy.AND)
+			.rewards(AdvancementRewards.Builder.experience(1000))
+			.save(consumer, "obtrophies:all_horse_trophies");
 
-		Advancement.Builder.advancement().parent(oneTrophy).display(
-						TrophyItem.loadVariantToTrophy(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.KOB, DyeColor.ORANGE, DyeColor.WHITE))),
-						Component.translatable("advancement.obtrophies.all_fish_trophies.title"),
-						Component.translatable("advancement.obtrophies.all_fish_trophies.desc"),
-						null, AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("has_fish_trophy_1", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.KOB, DyeColor.ORANGE, DyeColor.WHITE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_2", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.SUNSTREAK, DyeColor.GRAY, DyeColor.WHITE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_3", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.KOB, DyeColor.RED, DyeColor.WHITE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_4", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.BLOCKFISH, DyeColor.RED, DyeColor.WHITE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_5", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.BETTY, DyeColor.RED, DyeColor.WHITE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_6", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.CLAYFISH, DyeColor.WHITE, DyeColor.ORANGE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_7", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.BRINELY, DyeColor.LIME, DyeColor.LIGHT_BLUE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_8", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.SPOTTY, DyeColor.PINK, DyeColor.LIGHT_BLUE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_9", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.FLOPPER, DyeColor.WHITE, DyeColor.YELLOW)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_10", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.SPOTTY, DyeColor.WHITE, DyeColor.YELLOW)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_11", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.FLOPPER, DyeColor.YELLOW, DyeColor.YELLOW)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_12", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.DASHER, DyeColor.CYAN, DyeColor.YELLOW)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_13", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.BLOCKFISH, DyeColor.PURPLE, DyeColor.YELLOW)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_14", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.DASHER, DyeColor.CYAN, DyeColor.PINK)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_15", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.GLITTER, DyeColor.WHITE, DyeColor.GRAY)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_16", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.CLAYFISH, DyeColor.WHITE, DyeColor.GRAY)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_17", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.STRIPEY, DyeColor.ORANGE, DyeColor.GRAY)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_18", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.FLOPPER, DyeColor.GRAY, DyeColor.GRAY)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_19", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.SUNSTREAK, DyeColor.BLUE, DyeColor.GRAY)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_20", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.FLOPPER, DyeColor.GRAY, DyeColor.BLUE)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_21", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.CLAYFISH, DyeColor.WHITE, DyeColor.RED)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fish_trophy_22", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.SNOOPER, DyeColor.GRAY, DyeColor.RED)))).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.requirements(AdvancementRequirements.Strategy.AND)
-				.save(consumer, "obtrophies:all_fish_trophies");
+		this.makeCommonFish(Advancement.Builder.advancement().parent(oneTrophy).display(
+				TrophyItem.loadVariantToTrophy(EntityType.TROPICAL_FISH, this.makeIntVariant(TropicalFish.packVariant(TropicalFish.Pattern.KOB, DyeColor.ORANGE, DyeColor.WHITE))),
+				Component.translatable("advancement.obtrophies.all_fish_trophies.title"),
+				Component.translatable("advancement.obtrophies.all_fish_trophies.desc"),
+				null, AdvancementType.CHALLENGE, true, true, false)
+			).requirements(AdvancementRequirements.Strategy.AND)
+			.rewards(AdvancementRewards.Builder.experience(1000))
+			.save(consumer, "obtrophies:all_fish_trophies");
 
-		Advancement.Builder.advancement().parent(oneTrophy).display(
-						TrophyItem.loadEntityToTrophy(EntityType.FOX),
-						Component.translatable("advancement.obtrophies.all_vanilla.title"),
-						Component.translatable("advancement.obtrophies.all_vanilla.desc"),
-						null, AdvancementType.CHALLENGE, true, true, false)
-				.addCriterion("has_allay_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ALLAY)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_axolotl_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.AXOLOTL)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_bat_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.BAT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_bee_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.BEE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_blaze_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.BLAZE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_camel_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.CAMEL)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_cat_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.CAT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_cave_spider_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.CAVE_SPIDER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_chicken_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.CHICKEN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_cod_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.COD)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_cow_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.COW)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_creeper_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.CREEPER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_dolphin_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.DOLPHIN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_donkey_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.DONKEY)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_drowned_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.DROWNED)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_elder_guardian_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ELDER_GUARDIAN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_ender_dragon_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ENDER_DRAGON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_enderman_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ENDERMAN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_endermite_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ENDERMITE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_evoker_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.EVOKER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_fox_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.FOX)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_frog_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.FROG)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_ghast_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.GHAST)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_glow_squid_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.GLOW_SQUID)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_goat_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.GOAT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_guardian_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.GUARDIAN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_hoglin_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HOGLIN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_horse_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_husk_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HUSK)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_iron_golem_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.IRON_GOLEM)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_llama_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.LLAMA)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_magma_cube_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.MAGMA_CUBE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_mooshroom_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.MOOSHROOM)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_mule_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.MULE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_ocelot_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.OCELOT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_panda_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PANDA)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_parrot_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PARROT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_phantom_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PHANTOM)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_pig_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PIG)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_piglin_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PIGLIN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_piglin_brute_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PIGLIN_BRUTE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_pillager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PILLAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_polar_bear_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.POLAR_BEAR)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_pufferfish_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.PUFFERFISH)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_rabbit_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.RABBIT)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_ravager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.RAVAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_salmon_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SALMON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_sheep_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SHEEP)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_shulker_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SHULKER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_silverfish_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SILVERFISH)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_skeleton_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SKELETON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_skeleton_horse_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SKELETON_HORSE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_slime_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SLIME)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_sniffer_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SNIFFER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_snow_golem_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SNOW_GOLEM)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_spider_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SPIDER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_squid_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.SQUID)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_stray_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.STRAY)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_strider_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.STRIDER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_tadpole_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TADPOLE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_trader_llama_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TRADER_LLAMA)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_tropical_fish_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_turtle_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TURTLE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_vex_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.VEX)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_villager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.VILLAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_vindicator_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.VINDICATOR)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_wandering_trader_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WANDERING_TRADER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_warden_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WARDEN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_witch_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WITCH)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_wither_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WITHER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_wither_skeleton_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WITHER_SKELETON)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_wolf_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.WOLF)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_zoglin_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ZOGLIN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_zombie_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ZOMBIE)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_zombie_villager_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ZOMBIE_VILLAGER)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.addCriterion("has_zombified_piglin_trophy", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.ZOMBIFIED_PIGLIN)).build()).of(TrophyRegistries.TROPHY_ITEM).build()))
-				.requirements(AdvancementRequirements.Strategy.AND)
-				.save(consumer, "obtrophies:all_vanilla_trophies");
+		this.addEveryVanillaMob(Advancement.Builder.advancement().parent(oneTrophy).display(
+				TrophyItem.loadEntityToTrophy(EntityType.FOX),
+				Component.translatable("advancement.obtrophies.all_vanilla.title"),
+				Component.translatable("advancement.obtrophies.all_vanilla.desc"),
+				null, AdvancementType.CHALLENGE, true, true, false)
+			).requirements(AdvancementRequirements.Strategy.AND)
+			.rewards(AdvancementRewards.Builder.experience(1000))
+			.save(consumer, "obtrophies:all_vanilla_trophies");
 	}
 
 	private CompoundTag makeIntVariant(int variant) {
 		return Util.make(new CompoundTag(), tag -> tag.putInt("Variant", variant));
+	}
+
+	private Advancement.Builder addEveryVanillaMob(Advancement.Builder builder) {
+		for (EntityType<?> type : BuiltInRegistries.ENTITY_TYPE.stream().filter(type -> BuiltInRegistries.ENTITY_TYPE.getKey(type).getNamespace().equals("minecraft") && !OpenBlocksTrophies.UNUSED_TYPES.contains(type)).toList()) {
+			Class<?> instance = TrophiesCommands.getEntityClass(type);
+			if (instance != null && Mob.class.isAssignableFrom(instance)) {
+				builder.addCriterion(BuiltInRegistries.ENTITY_TYPE.getKey(type).getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(type)).build()).of(TrophyRegistries.TROPHY_ITEM).build()));
+			}
+		}
+		return builder;
+	}
+
+	private Advancement.Builder makeCommonFish(Advancement.Builder builder) {
+		for (TropicalFish.Variant variant : TropicalFish.COMMON_VARIANTS) {
+			String fishName = Component.translatable(TropicalFish.getPredefinedName(TropicalFish.COMMON_VARIANTS.indexOf(variant))).getString().toLowerCase(Locale.ROOT).replace(' ', '_');
+			builder.addCriterion(fishName, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.TROPICAL_FISH, this.makeIntVariant(variant.getPackedId()))).build()).of(TrophyRegistries.TROPHY_ITEM).build()));
+		}
+		return builder;
+	}
+
+	private Advancement.Builder makeHorses(Advancement.Builder builder) {
+		for (Markings markings : Markings.values()) {
+			for (Variant variant : Variant.values()) {
+				builder.addCriterion(variant.getSerializedName() + "_" + markings.name().toLowerCase(Locale.ROOT), InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().hasComponents(DataComponentPredicate.builder().expect(TrophyRegistries.TROPHY_INFO.get(), new TrophyInfo(EntityType.HORSE, this.makeIntVariant(variant.getId() & 0xFF | markings.getId() << 8 & 0xFF00))).build()).of(TrophyRegistries.TROPHY_ITEM).build()));
+			}
+		}
+		return builder;
 	}
 }

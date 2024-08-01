@@ -50,7 +50,7 @@ public class ConfigSetup {
 	public static void syncConfigOnLogin(PlayerEvent.PlayerLoggedInEvent event) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if (server != null && server.isDedicatedServer() && event.getEntity() instanceof ServerPlayer player) {
-			PacketDistributor.sendToPlayer(player, new SyncCommonConfigPacket(TrophyConfig.fakePlayersDropTrophies, TrophyConfig.anySourceDropsTrophies));
+			PacketDistributor.sendToPlayer(player, new SyncCommonConfigPacket(TrophyConfig.trophyDropSource));
 		}
 	}
 }

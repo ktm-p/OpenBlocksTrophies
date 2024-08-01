@@ -19,7 +19,7 @@ import java.util.*;
 
 public class EntityCache {
 
-	private static final Map<EntityType<?>, Entity> ENTITY_MAP = new HashMap<>();
+	private static final Map<EntityType<?>, Entity> ENTITY_MAP = new WeakHashMap<>();
 	private static final Set<EntityType<?>> IGNORED_ENTITIES = new HashSet<>();
 
 	@Nullable

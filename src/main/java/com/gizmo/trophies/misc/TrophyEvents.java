@@ -14,7 +14,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -86,9 +85,9 @@ public class TrophyEvents {
 				dropChance = TrophyConfig.playerChargedCreeperDropChance - TROPHY_RANDOM.nextDouble();
 			} else {
 				//don't drop trophies if the config doesn't allow this source to
-				if (!(event.getSource().getEntity() instanceof Player) && !TrophyConfig.anySourceDropsTrophies)
+				if (!(event.getSource().getEntity() instanceof Player) && TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.ALL)
 					return;
-				if (event.getSource().getEntity() instanceof FakePlayer && !TrophyConfig.fakePlayersDropTrophies)
+				if (event.getSource().getEntity() instanceof FakePlayer && TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.FAKE_PLAYER)
 					return;
 				Trophy trophy = Trophy.getTrophies().getOrDefault(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.PLAYER), new Trophy.Builder(EntityType.PLAYER).build());
 				dropChance = ((getLootingLevel((ServerLevel) event.getEntity().level(), event.getSource()) + (TROPHY_RANDOM.nextDouble() / 4)) * OpenBlocksTrophies.getTrophyDropChance(trophy)) - TROPHY_RANDOM.nextDouble();
@@ -100,9 +99,9 @@ public class TrophyEvents {
 			}
 		} else {
 			//don't drop trophies if the config doesn't allow this source to
-			if (!(event.getSource().getEntity() instanceof Player) && !TrophyConfig.anySourceDropsTrophies)
+			if (!(event.getSource().getEntity() instanceof Player) && TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.ALL)
 				return;
-			if (event.getSource().getEntity() instanceof FakePlayer && !TrophyConfig.fakePlayersDropTrophies)
+			if (event.getSource().getEntity() instanceof FakePlayer && TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.FAKE_PLAYER)
 				return;
 
 			if (Trophy.getTrophies().containsKey(BuiltInRegistries.ENTITY_TYPE.getKey(event.getEntity().getType()))) {
@@ -160,6 +159,6 @@ public class TrophyEvents {
 				}
 			}
 		}
-		return null;
+		return new CompoundTag();
 	}
 }

@@ -40,7 +40,7 @@ public class TrophyRegistries {
 	public static final DeferredHolder<SoundEvent, SoundEvent> OOF = SOUNDS.register("entity.obtrophies.player.oof", () -> SoundEvent.createVariableRangeEvent(OpenBlocksTrophies.prefix("entity.obtrophies.player.oof")));
 
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TROPHY_TAB = TABS.register("trophies", () -> CreativeModeTab.builder()
-			.title(Component.translatable("itemGroup.obtrophies"))
+			.title(Component.translatable(TranslatableStrings.TROPHY_TAB))
 			.withSearchBar()
 			.icon(TrophyTabHelper::makeIcon)
 			.displayItems((params, output) -> TrophyTabHelper.getAllTrophies(output, params.holders(), params.enabledFeatures(), TrophyTabHelper.shouldShowVariants()))

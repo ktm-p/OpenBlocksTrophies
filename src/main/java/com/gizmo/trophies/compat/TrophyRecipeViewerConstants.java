@@ -59,7 +59,7 @@ public final class TrophyRecipeViewerConstants {
 				try {
 					renderTheEntity(graphics, x, y, scale, entity);
 				} catch (Exception e) {
-					OpenBlocksTrophies.LOGGER.error("Error drawing entity " + BuiltInRegistries.ENTITY_TYPE.getKey(type), e);
+					OpenBlocksTrophies.LOGGER.error("Error drawing entity {}", BuiltInRegistries.ENTITY_TYPE.getKey(type), e);
 					EntityCache.addEntityToBlacklist(type);
 				}
 			}

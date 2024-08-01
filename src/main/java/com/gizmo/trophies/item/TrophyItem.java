@@ -1,6 +1,7 @@
 package com.gizmo.trophies.item;
 
 import com.gizmo.trophies.block.TrophyInfo;
+import com.gizmo.trophies.misc.TranslatableStrings;
 import com.gizmo.trophies.misc.TrophyRegistries;
 import com.gizmo.trophies.trophy.Trophy;
 import net.minecraft.ChatFormatting;
@@ -101,7 +102,7 @@ public class TrophyItem extends BlockItem {
 	public Component getName(ItemStack stack) {
 		Trophy trophy = getTrophy(stack);
 		if (trophy != null && !hasCycleOnTrophy(stack)) {
-			return Component.translatable("block.obtrophies.trophy.entity", trophy.type().getDescription().plainCopy().getString());
+			return Component.translatable(TranslatableStrings.TROPHY_WITH_ENTITY, trophy.type().getDescription().plainCopy().getString());
 		}
 		return super.getName(stack);
 	}
@@ -110,12 +111,12 @@ public class TrophyItem extends BlockItem {
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		Trophy trophy = getTrophy(stack);
 		if (trophy != null && !hasCycleOnTrophy(stack)) {
-			tooltip.add(Component.translatable("item.obtrophies.trophy.modid", this.getModIdForTooltip(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophy.type())).getNamespace())).withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable(TranslatableStrings.FROM_MOD_ID, this.getModIdForTooltip(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(trophy.type())).getNamespace())).withStyle(ChatFormatting.GRAY));
 			if (flag.isAdvanced()) {
 				CompoundTag variant = getTrophyVariant(stack);
 				HolderLookup.Provider provider = context.registries();
 				if (provider != null && !trophy.getVariants(provider).isEmpty() && !variant.isEmpty()) {
-					variant.getAllKeys().forEach(s -> tooltip.add(Component.translatable("item.obtrophies.trophy.variant", s, Objects.requireNonNull(variant.get(s)).getAsString()).withStyle(ChatFormatting.GRAY)));
+					variant.getAllKeys().forEach(s -> tooltip.add(Component.translatable(TranslatableStrings.VARIANT_FORMATTER, s, Objects.requireNonNull(variant.get(s)).getAsString()).withStyle(ChatFormatting.GRAY)));
 				}
 			}
 		}

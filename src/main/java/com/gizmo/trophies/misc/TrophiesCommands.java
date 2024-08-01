@@ -38,7 +38,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.fml.ModList;
@@ -132,15 +131,15 @@ public class TrophiesCommands {
 
 	public static int count(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
 		if (Trophy.getTrophies().isEmpty()) {
-			throw new SimpleCommandExceptionType(Component.translatable("command.obtrophies.empty_list").withStyle(ChatFormatting.RED)).create();
+			throw new SimpleCommandExceptionType(Component.translatable(TranslatableStrings.EMPTY_TROPHY_LIST).withStyle(ChatFormatting.RED)).create();
 		}
-		context.getSource().sendSuccess(() -> Component.translatable("command.obtrophies.count", Trophy.getTrophies().size()), false);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslatableStrings.TROPHY_COUNT, Trophy.getTrophies().size()), false);
 		return Command.SINGLE_SUCCESS;
 	}
 
 	public static int placeAll(CommandContext<CommandSourceStack> context, boolean placeVariants, String modid) throws CommandSyntaxException {
 		if (Trophy.getTrophies().isEmpty()) {
-			throw new SimpleCommandExceptionType(Component.translatable("command.obtrophies.empty_list").withStyle(ChatFormatting.RED)).create();
+			throw new SimpleCommandExceptionType(Component.translatable(TranslatableStrings.EMPTY_TROPHY_LIST).withStyle(ChatFormatting.RED)).create();
 		}
 
 		Map<ResourceLocation, Trophy> sortedTrophies = new TreeMap<>(Comparator.naturalOrder());
@@ -171,7 +170,7 @@ public class TrophiesCommands {
 				}
 			}
 		}
-		context.getSource().sendSuccess(() -> Component.translatable("command.obtrophies.place", amount), false);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslatableStrings.PLACED_TROPHIES, amount), false);
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -187,12 +186,12 @@ public class TrophiesCommands {
 
 	private static int writeTrophiesForMod(CommandContext<CommandSourceStack> context, String modid, boolean checkExistingConfigs, boolean printEachEntity) throws CommandSyntaxException {
 		if (!modid.equals("all") && !ModList.get().isLoaded(modid)) {
-			throw new SimpleCommandExceptionType(Component.translatable("command.obtrophies.mod_not_loaded", modid).withStyle(ChatFormatting.RED)).create();
+			throw new SimpleCommandExceptionType(Component.translatable(TranslatableStrings.MOD_NOT_LOADED, modid).withStyle(ChatFormatting.RED)).create();
 		}
 		int successfulFilesMade = 0;
-		for (EntityType<?> entity : BuiltInRegistries.ENTITY_TYPE.stream().filter(type -> (modid.equals("all") || BuiltInRegistries.ENTITY_TYPE.getKey(type).getNamespace().equals(modid)) && checkExistingConfigs != Trophy.getTrophies().containsKey(BuiltInRegistries.ENTITY_TYPE.getKey(type))).toList()) {
+		for (EntityType<?> entity : BuiltInRegistries.ENTITY_TYPE.stream().filter(type -> (modid.equals("all") || BuiltInRegistries.ENTITY_TYPE.getKey(type).getNamespace().equals(modid)) && checkExistingConfigs != Trophy.getTrophies().containsKey(BuiltInRegistries.ENTITY_TYPE.getKey(type)) && !OpenBlocksTrophies.UNUSED_TYPES.contains(type)).toList()) {
 			Class<?> instance = getEntityClass(entity);
-			if (instance != null && Mob.class.isAssignableFrom(instance) && entity.getCategory() != MobCategory.MISC) {
+			if (instance != null && Mob.class.isAssignableFrom(instance)) {
 				ResourceLocation entityName = BuiltInRegistries.ENTITY_TYPE.getKey(entity);
 				Path path = context.getSource().getLevel().getServer().getWorldPath(LevelResource.GENERATED_DIR).resolve(entityName.getNamespace()).resolve("trophies").resolve(entityName.getPath() + ".json").normalize();
 				Trophy.Builder dummy = new Trophy.Builder(entity);
@@ -201,14 +200,14 @@ public class TrophiesCommands {
 					dummy.setScale(Float.parseFloat(FORMAT.format(Math.min(2.0F, 2.0F / entity.getHeight()))));
 				if (writeToFile(Trophy.BASE_CODEC.encodeStart(JsonOps.INSTANCE, dummy.build()).resultOrPartial(OpenBlocksTrophies.LOGGER::error).orElseThrow(), path)) {
 					if (printEachEntity) {
-						context.getSource().sendSuccess(() -> Component.translatable("command.obtrophies.trophy_made", entityName.toString()), false);
+						context.getSource().sendSuccess(() -> Component.translatable(TranslatableStrings.TROPHY_STUB_MADE, entityName.toString()), false);
 					}
 					successfulFilesMade++;
 				}
 			}
 		}
 		int totalFiles = successfulFilesMade;
-		context.getSource().sendSuccess(() -> Component.translatable("command.obtrophies.trophies_made", totalFiles), false);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslatableStrings.TROPHY_STUBS_MADE, totalFiles), false);
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -237,7 +236,7 @@ public class TrophiesCommands {
 	@SuppressWarnings("unchecked")
 	@Nullable
 	//this is actual insanity
-	private static <T extends Entity> Class<T> getEntityClass(EntityType<T> type) {
+	public static <T extends Entity> Class<T> getEntityClass(EntityType<T> type) {
 		final Class<T> entityClass = (Class<T>) TypeResolver.resolveRawArgument(EntityType.EntityFactory.class, type.factory.getClass());
 		if ((Class<?>) entityClass == TypeResolver.Unknown.class) {
 			OpenBlocksTrophies.LOGGER.error("Couldn't resolve entity class provided for entity {}", type.getDescriptionId());

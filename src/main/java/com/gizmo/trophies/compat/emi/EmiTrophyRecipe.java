@@ -3,6 +3,7 @@ package com.gizmo.trophies.compat.emi;
 import com.gizmo.trophies.compat.TrophyRecipeViewerConstants;
 import com.gizmo.trophies.config.TrophyConfig;
 import com.gizmo.trophies.item.TrophyItem;
+import com.gizmo.trophies.misc.TranslatableStrings;
 import com.gizmo.trophies.trophy.Trophy;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -10,6 +11,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record EmiTrophyRecipe(ResourceLocation id, Trophy trophy, CompoundTag variant) implements EmiRecipe {
@@ -32,7 +35,7 @@ public record EmiTrophyRecipe(ResourceLocation id, Trophy trophy, CompoundTag va
 	}
 
 	@Override
-	public @Nullable ResourceLocation getId() {
+	public ResourceLocation getId() {
 		return this.id();
 	}
 
@@ -65,17 +68,28 @@ public record EmiTrophyRecipe(ResourceLocation id, Trophy trophy, CompoundTag va
 		widgets.addTexture(BACKGROUND, 0, 0);
 		widgets.add(new EmiEntityWidget(this.trophy().type(), 10, 11, 32, this.variant(), this.trophy().defaultData()));
 
-		if (!TrophyConfig.anySourceDropsTrophies) {
-			if (TrophyConfig.fakePlayersDropTrophies) {
-				widgets.addTexture(FAKE_PLAYER_INDICATOR, 54, 19).tooltipText(List.of(TrophyRecipeViewerConstants.PLAYER_DROP_ONLY.copy().append(TrophyRecipeViewerConstants.FAKE_PLAYER_DROPS)));
-			} else {
-				widgets.addTexture(PLAYER_INDICATOR, 54, 19).tooltipText(List.of(TrophyRecipeViewerConstants.PLAYER_DROP_ONLY));
+
+		if (TrophyConfig.trophyDropSource != TrophyConfig.TrophySourceDrop.ALL) {
+			widgets.addTexture(this.getKillIcon(), 54, 19);
+			List<Component> components = new ArrayList<>();
+			components.add(Component.translatable(TranslatableStrings.TROPHY_PLAYER).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+			if (TrophyConfig.trophyDropSource == TrophyConfig.TrophySourceDrop.FAKE_PLAYER) {
+				components.add(Component.translatable(TranslatableStrings.TROPHY_FAKE_PLAYER).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 			}
+			widgets.addTooltipText(components, 54, 19, 16, 16);
 		} else {
-			widgets.addTexture(ANY_SOURCE_INDICATOR, 50, 19);
+			widgets.addTexture(this.getKillIcon(), 50, 19);
 		}
-		widgets.addText(Component.translatable("gui.obtrophies.jei.drop_chance", TrophyRecipeViewerConstants.getTrophyDropPercentage(this.trophy())), 46, 45, 0xFF808080, false);
+		widgets.addText(Component.translatable(TranslatableStrings.TROPHY_DROP_CHANCE, TrophyRecipeViewerConstants.getTrophyDropPercentage(this.trophy())), 46, 45, 0xFF808080, false);
 		widgets.addSlot(this.getOutputs().getFirst(), 81, 14).large(true).drawBack(false);
+	}
+
+	private EmiTexture getKillIcon() {
+		return switch (TrophyConfig.trophyDropSource) {
+			case ALL -> ANY_SOURCE_INDICATOR;
+			case FAKE_PLAYER -> FAKE_PLAYER_INDICATOR;
+			case PLAYER -> PLAYER_INDICATOR;
+		};
 	}
 
 	@Override

@@ -136,5 +136,8 @@
       "has_piglin_brute_trophy"
     ]
   ],
+  "rewards": {
+    "experience": 100
+  },
   "sends_telemetry_event": true
 }
