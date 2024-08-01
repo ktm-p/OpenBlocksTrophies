@@ -1,3 +1,4 @@
 {
-  "entity": "knightquest:eldknight"
+  "entity": "knightquest:eldknight",
+  "scale": 0.66
 }
